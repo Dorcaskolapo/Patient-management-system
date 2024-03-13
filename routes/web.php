@@ -16,3 +16,31 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::group(['prefix' => 'admin'], function () {
+  Route::get('/login', 'Admin\Auth\LoginController@showLoginForm')->name('login');
+  Route::post('/login', 'Admin\Auth\LoginController@login');
+  Route::post('/logout', 'Admin\Auth\LoginController@logout')->name('logout');
+
+  Route::get('/register', 'Admin\Auth\RegisterController@showRegistrationForm')->name('register');
+  Route::post('/register', 'Admin\Auth\RegisterController@register');
+
+  Route::post('/password/email', 'Admin\Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.request');
+  Route::post('/password/reset', 'Admin\Auth\ResetPasswordController@reset')->name('password.email');
+  Route::get('/password/reset', 'Admin\Auth\ForgotPasswordController@showLinkRequestForm')->name('password.reset');
+  Route::get('/password/reset/{token}', 'Admin\Auth\ResetPasswordController@showResetForm');
+});
+
+Route::group(['prefix' => 'staff'], function () {
+  Route::get('/login', 'Staff\Auth\LoginController@showLoginForm')->name('login');
+  Route::post('/login', 'Staff\Auth\LoginController@login');
+  Route::post('/logout', 'Staff\Auth\LoginController@logout')->name('logout');
+
+  Route::get('/register', 'Staff\Auth\RegisterController@showRegistrationForm')->name('register');
+  Route::post('/register', 'Staff\Auth\RegisterController@register');
+
+  Route::post('/password/email', 'Staff\Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.request');
+  Route::post('/password/reset', 'Staff\Auth\ResetPasswordController@reset')->name('password.email');
+  Route::get('/password/reset', 'Staff\Auth\ForgotPasswordController@showLinkRequestForm')->name('password.reset');
+  Route::get('/password/reset/{token}', 'Staff\Auth\ResetPasswordController@showResetForm');
+});
