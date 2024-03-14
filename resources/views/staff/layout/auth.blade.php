@@ -1,85 +1,47 @@
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'Laravel Multi Auth Guard') }}</title>
-
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
-    <!-- Scripts -->
-    <script>
-        window.Laravel = <?php echo json_encode([
-            'csrfToken' => csrf_token(),
-        ]); ?>
-    </script>
+    <title>Tabib Apps web | Staff Dashboard Template</title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" href="{{asset('assets/images/favicon-32x32.png')}}">
+    <!-- Base Styling  -->
+    <link rel="stylesheet" href="{{asset('assets/main/css/fonts.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/main/css/style.css')}}">
 </head>
-<body>
-    <nav class="navbar navbar-default navbar-static-top">
-        <div class="container">
-            <div class="navbar-header">
 
-                <!-- Collapsed Hamburger -->
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                    <span class="sr-only">Toggle Navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
+<body class="auth">
+    <div id="main-wrapper" class="show">
 
-                <!-- Branding Image -->
-                <a class="navbar-brand" href="{{ url('/staff') }}">
-                    {{ config('app.name', 'Laravel Multi Auth Guard') }}: Staff
-                </a>
-            </div>
+        @yield('content')
 
-            <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                <!-- Left Side Of Navbar -->
-                <ul class="nav navbar-nav">
-                    &nbsp;
-                </ul>
+    </div>
 
-                <!-- Right Side Of Navbar -->
-                <ul class="nav navbar-nav navbar-right">
-                    <!-- Authentication Links -->
-                    @if (Auth::guest())
-                        <li><a href="{{ url('/staff/login') }}">Login</a></li>
-                        <li><a href="{{ url('/staff/register') }}">Register</a></li>
-                    @else
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                {{ Auth::user()->name }} <span class="caret"></span>
-                            </a>
+    <!-- JQuery v3.5.1 -->
+    <script src="{{asset('assets/plugins/jquery/jquery.min.js')}}"></script>
 
-                            <ul class="dropdown-menu" role="menu">
-                                <li>
-                                    <a href="{{ url('/staff/logout') }}"
-                                        onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();">
-                                        Logout
-                                    </a>
+    <!-- popper js -->
+    <script src="{{asset('assets/plugins/popper/popper.min.js')}}"></script>
 
-                                    <form id="logout-form" action="{{ url('/staff/logout') }}" method="POST" style="display: none;">
-                                        {{ csrf_field() }}
-                                    </form>
-                                </li>
-                            </ul>
-                        </li>
-                    @endif
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <!-- Bootstrap -->
+    <script src="{{asset('assets/plugins/bootstrap/js/bootstrap.js')}}"></script>
 
-    @yield('content')
+    <!-- Moment -->
+    <script src="{{asset('assets/plugins/moment/moment.min.js')}}"></script>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
+    <!-- Date Range Picker -->
+    <script src="{{asset('assets/plugins/daterangepicker/daterangepicker.min.js')}}"></script>
+
+    <!-- Main Custom JQuery -->
+    <script src="{{asset('assets/js/toggleFullScreen.js')}}"></script>
+    <script src="{{asset('assets/js/main.js')}}"></script>
+    <script src="{{asset('assets/js/option-themes.js')}}"></script>
+
 </body>
+
+
 </html>
