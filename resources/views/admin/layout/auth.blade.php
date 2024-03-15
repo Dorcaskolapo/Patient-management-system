@@ -2,13 +2,11 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
-<!-- Mirrored from tabib-v2.inaikas.com/page-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 10 Mar 2024 14:43:39 GMT -->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Tabib Apps web | Admin Dashboard Template</title>
+    <title>{{ env('APP_NAME') }}</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" href="{{asset('assets/images/favicon-32x32.png')}}">
     <!-- Base Styling  -->
@@ -42,6 +40,5 @@
     <script src="{{asset('assets/js/option-themes.js')}}"></script>
 
 </body>
-
 
 </html>
