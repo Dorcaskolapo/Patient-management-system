@@ -3,9 +3,6 @@
 @section('content')
 <div class="container-fluid">
     <div class="row">
-        <div class="col-xl-7 p-0 b-center bg-size">
-            <img class="img-fluid" src="{{asset('assets/images/bg-register.jpg')}}" alt="tabib app">
-        </div>
         <div class="col-xl-5 p-0">
             <div class="login-tabib">
                 <div>

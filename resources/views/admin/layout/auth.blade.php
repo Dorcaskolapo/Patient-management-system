@@ -2,6 +2,8 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
+<!-- Mirrored from tabib-v2.inaikas.com/page-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 10 Mar 2024 14:43:39 GMT -->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,9 +18,7 @@
 
 <body class="auth">
     <div id="main-wrapper" class="show">
-
         @yield('content')
-
     </div>
 
     <!-- JQuery v3.5.1 -->
