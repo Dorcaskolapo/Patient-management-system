@@ -1,52 +1,6 @@
 @extends('admin.layout.auth')
 
 @section('content')
-<<<<<<< HEAD
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-xl-5 p-0">
-            <div class="login-tabib">
-                <div>
-                    <div class="text-center">
-                        <a class="logo" href="index.html">
-                            <img class="img-fluid" src="{{asset('assets/images/logo.png')}}" alt="loogin page">
-                        </a>
-                    </div>
-                    <div class="login-main">
-                        <form class="theme-form" role="form" method="POST" action="{{ url('/admin/login') }}">
-                            @csrf
-                            <h4>Sign in to account</h4>
-                            <p>Enter your email & password to login </p>
-                            <div class="form-group m-b-10">
-                                <label class="col-form-label">Email Address</label>
-                                <input class="form-control" type="email" name="email" placeholder="Enter your email address">
-                            </div>
-                            <div class="form-group m-b-10">
-                                <label class="col-form-label">Password</label>
-                                <div class="form-input position-relative">
-                                    <input class="form-control" type="password" name="password" placeholder="Enter your password">
-                                    <div class="show-hide"><span class="show"></span></div>
-                                    @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                                </div>
-                            </div>
-                            <div class="form-group mb-0">
-                                <div class="checkbox p-0">
-                                    <input id="checkbox1" type="checkbox">
-                                    <label class="text-muted" name="remember" for="checkbox1">Remember password
-                                    </label>
-                                </div>
-                                <a class="link text-primary" href="{{ url('/admin/password/reset') }}">Forgot
-                                    password?</a>
-                                <div class="mt-3">
-                                    <button class="btn btn-primary" type="submit"> Sign In </button>
-                                </div>
-                            </div>
-                        </form>
-=======
 <div class="login-tabib">
     <div>
         <div class="text-center">
@@ -68,7 +22,6 @@
                     <div class="form-input position-relative">
                         <input class="form-control" type="password" name="password" placeholder="Enter your password">
                         <div class="show-hide"><span class="show"></span></div>
->>>>>>> 27721ceb7f93c45619f2b6cc6364b8355471d0b1
                     </div>
                 </div>
                 <div class="form-group mb-0">
