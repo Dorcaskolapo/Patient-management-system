@@ -37,7 +37,7 @@
                 <ul class="list-unstyled main-menu">
 
                     <li class="has-submenu">
-                        <a href="index.html">
+                        <a href="{{ url('/admin/home') }}">
                             <i class="fas fa-th-large"></i>
                             <span class="nav-label">Dashboard</span>
                         </a>

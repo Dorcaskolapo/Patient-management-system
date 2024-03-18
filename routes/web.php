@@ -35,7 +35,7 @@ Route::group(['prefix' => 'admin'], function () {
 
   Route::get('/home', [App\Http\Controllers\Admin\AdminController::class, 'index'])->name('home')->middleware(['auth:admin']);
 
-  Route::get('/staff', [App\Http\Controllers\Admin\AdminController::class, 'allStaff'])->name('allStaff')->middleware(['auth:admin']);  
+  Route::get('/staff', [App\Http\Controllers\Admin\AdminController::class, 'staff'])->name('staff')->middleware(['auth:admin']);  
   Route::post('/addStaff', [App\Http\Controllers\Admin\AdminController::class, 'addStaff'])->name('addStaff')->middleware(['auth:admin']);
   Route::post('/editStaff', [App\Http\Controllers\Admin\AdminController::class, 'editStaff'])->name('editStaff')->middleware(['auth:admin']);
   Route::post('/deleteStaff', [App\Http\Controllers\Admin\AdminController::class, 'deleteStaff'])->name('deleteStaff')->name('deleteStaff')->middleware(['auth:admin']);
