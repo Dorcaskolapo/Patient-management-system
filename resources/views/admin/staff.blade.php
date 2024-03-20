@@ -26,8 +26,9 @@
                         </div>
                         <div class="card-body">
                             <div class="basic-form">
-                                <form>
-                                    <div class="row">
+                                <form role="form" method="POST" action="{{ url('/admin/addStaff') }}">
+                                    @csrf
+                                    {{-- <div class="row">
                                         <div class="col-xl-4">
                                             <div class="form-group row widget-3">
                                                 <div class="col-lg-12">
@@ -43,17 +44,14 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                         <div class="col-xl-4">
                                             <div class="form-group">
                                                 <input type="text" class="form-control"
-                                                    placeholder="First Name">
+                                                    placeholder="Enter staff name" name="name">
                                             </div>
                                             <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="Last Name">
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="email" class="form-control" placeholder="Email">
+                                                <input type="email" class="form-control" placeholder="Email" name="email">
                                             </div>
                                             <div class="form-group">
                                                 <input type="text" class="form-control"
@@ -62,90 +60,37 @@
                                         </div>
                                         <div class="col-xl-4">
                                             <div class="form-group">
-                                                <select class="form-control form-select">
-                                                    <option>Choose A Gnder</option>
+                                                <select class="form-control form-select" name="gender">
+                                                    <option>Choose A Gender</option>
                                                     <option>Female</option>
                                                     <option>Male</option>
                                                 </select>
                                             </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xl-12">
+                                        </div>
+                                        <div class="col-xl-12">
                                             <div class="form-group">
-                                                <input type="text" class="form-control"
-                                                    placeholder="Date Of Birth">
-                                            </div>
-                                            <div class="form-group">
-                                                <select class="form-control form-select">
-                                                    <option>Languages</option>
-                                                    <option>Arabic</option>
-                                                    <option>English</option>
-                                                    <option>French</option>
-                                                    <option>German</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <select class="form-control form-select">
-                                                    <option>Nationality</option>
-                                                    <option>Maroc</option>
-                                                    <option>Algerier</option>
-                                                    <option>Tunisie</option>
-                                                    <option>Egypt</option>
+                                                <select class="form-control form-select" name="role">
+                                                    <option value="" selected>Select Staff Role</option>
+                                                    @foreach($roles as $role)
+                                                        <option value="{{ $role->id }}">{{ $role->role }}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-xl-4">
-                                        </div>
-                                        <div class="col-xl-4">
-                                            <div class="form-group row">
-                                                <div class="col-lg-12">
-                                                    <select class="form-control form-select">
-                                                        <option>City</option>
-                                                        <option>Rabat</option>
-                                                        <option>Kenitra</option>
-                                                        <option>Casablanca</option>
-                                                        <option>Marakesh</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xl-4">
-                                            <div class="form-group row">
-                                                <div class="col-lg-12">
-                                                    <input type="text" class="form-control" placeholder="Zip">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xl-4">
-                                        </div>
                                         <div class="col-xl-8">
                                             <div class="form-group">
-                                                <select class="form-control ">
-                                                    <option>User role</option>
-                                                    <option>Surgery</option>
-                                                    <option>Gastroenterologist</option>
-                                                    <option>Endocrinologist</option>
-                                                </select>
+                                                <textarea class="form-control" placeholder="Address" rows="4"></textarea>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xl-4">
-                                            <div class="form-group">
-                                                <textarea class="form-control" placeholder="Address"
-                                                    rows="4"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="col-xl-8">
-                                            <div class="form-group">
-                                                <textarea class="form-control" placeholder="Bio:"
-                                                    rows="4"></textarea>
-                                            </div>
-                                            <div class="form-group text-right">
-                                                <button type="submit" class="btn btn-primary float-end">Add
-                                                    Staff</button>
-                                            </div>
+                                        <div class="form-group text-right">
+                                            <button type="submit" class="btn btn-primary float-end">Add
+                                                Staff</button>
                                         </div>
                                     </div>
                                 </form>
