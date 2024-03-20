@@ -49,7 +49,7 @@
                         </a>
                         <ul class="list-unstyled mm-collapse">
                             <li><a href="{{ url('/admin/staff') }}">Add Staff</a></li>
-                            <li><a href="{{ url('/admin/addStaff') }}">All Staffs</a></li>
+                            <li><a href="{{ url('/admin/allStaff') }}">All Staffs</a></li>
                             {{-- <li> <a href="doctor-profile.html">Staffs Profile</a> </li> --}}
                         </ul>
                     </li>

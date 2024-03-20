@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Patient extends Model
 {
@@ -22,6 +23,15 @@ class Patient extends Model
         'allergies',
         'code',
     ];
+
+    public function prescriptions() {
+        return $this->hasMany(Prescription::class);
+    }
+     
+    public function tests() {
+        return $this->hasMany(Test::class);
+    }
+     
 }
 
 

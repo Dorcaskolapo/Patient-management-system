@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateStaffTable extends Migration
 {
@@ -13,7 +13,7 @@ class CreateStaffTable extends Migration
     public function up()
     {
         Schema::create('staff', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
@@ -21,19 +21,21 @@ class CreateStaffTable extends Migration
             $table->string('phone_number')->nullable();
             $table->string('address')->nullable();
             $table->string('gender')->nullable();
+            $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
         });
     }
 
-    /**
+     /**
      * Reverse the migrations.
      *
      * @return void
      */
     public function down()
     {
-        Schema::drop('staff');
+        Schema::dropIfExists('staff');
     }
 }
+
