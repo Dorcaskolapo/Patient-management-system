@@ -41,6 +41,36 @@ Route::group(['prefix' => 'admin'], function () {
   Route::post('/editStaff', [App\Http\Controllers\Admin\AdminController::class, 'editStaff'])->name('editStaff')->middleware(['auth:admin']);
   Route::post('/deleteStaff', [App\Http\Controllers\Admin\AdminController::class, 'deleteStaff'])->name('deleteStaff')->name('deleteStaff')->middleware(['auth:admin']);
 
+  Route::get('/patient', [App\Http\Controllers\Admin\AdminController::class, 'patient'])->name('patient')->middleware(['auth:admin']);  
+  Route::get('/allPatient', [App\Http\Controllers\Admin\AdminController::class, 'allPatient'])->name('allPatient')->middleware(['auth:admin']);  
+  Route::post('/addPatient', [App\Http\Controllers\Admin\AdminController::class, 'addPatient'])->name('addPatient')->middleware(['auth:admin']);
+  Route::post('/editPatient', [App\Http\Controllers\Admin\AdminController::class, 'editPatient'])->name('editPatient')->middleware(['auth:admin']);
+  Route::post('/deletePatient', [App\Http\Controllers\Admin\AdminController::class, 'deletePatient'])->name('deletePatient')->name('deletePatient')->middleware(['auth:admin']);
+
+  Route::get('/prescription', [App\Http\Controllers\Admin\AdminController::class, 'prescription'])->name('prescription')->middleware(['auth:admin']);  
+  Route::get('/allPrescription', [App\Http\Controllers\Admin\AdminController::class, 'allPrescription'])->name('allPrescription')->middleware(['auth:admin']);  
+  Route::post('/addPrescription', [App\Http\Controllers\Admin\AdminController::class, 'addPrescription'])->name('addPrescription')->middleware(['auth:admin']);
+  Route::post('/editPrescription', [App\Http\Controllers\Admin\AdminController::class, 'editPrescription'])->name('editPrescription')->middleware(['auth:admin']);
+  Route::post('/deletePrescription', [App\Http\Controllers\Admin\AdminController::class, 'deletePrescription'])->name('deletePrescription')->name('deletePrescription')->middleware(['auth:admin']);
+
+  Route::get('/drug', [App\Http\Controllers\Admin\AdminController::class, 'drug'])->name('drug')->middleware(['auth:admin']);  
+  Route::get('/allDrug', [App\Http\Controllers\Admin\AdminController::class, 'allDrug'])->name('allDrug')->middleware(['auth:admin']);  
+  Route::post('/addDrug', [App\Http\Controllers\Admin\AdminController::class, 'addDrug'])->name('addDrug')->middleware(['auth:admin']);
+  Route::post('/editDrug', [App\Http\Controllers\Admin\AdminController::class, 'editDrug'])->name('editDrug')->middleware(['auth:admin']);
+  Route::post('/deleteDrug', [App\Http\Controllers\Admin\AdminController::class, 'deleteDrug'])->name('deleteDrug')->name('deleteDrug')->middleware(['auth:admin']);
+
+  Route::get('/test', [App\Http\Controllers\Admin\AdminController::class, 'test'])->name('test')->middleware(['auth:admin']);  
+  Route::get('/allTest', [App\Http\Controllers\Admin\AdminController::class, 'allTest'])->name('allTest')->middleware(['auth:admin']);  
+  Route::post('/addTest', [App\Http\Controllers\Admin\AdminController::class, 'addTest'])->name('addTest')->middleware(['auth:admin']);
+  Route::post('/editTest', [App\Http\Controllers\Admin\AdminController::class, 'editTest'])->name('editTest')->middleware(['auth:admin']);
+  Route::post('/deleteTest', [App\Http\Controllers\Admin\AdminController::class, 'deleteTest'])->name('deleteTest')->name('deleteTest')->middleware(['auth:admin']);
+
+  Route::get('/billing', [App\Http\Controllers\Admin\AdminController::class, 'billing'])->name('billing')->middleware(['auth:admin']);  
+  Route::get('/allBilling', [App\Http\Controllers\Admin\AdminController::class, 'allBilling'])->name('allBilling')->middleware(['auth:admin']);  
+  Route::post('/addBilling', [App\Http\Controllers\Admin\AdminController::class, 'addBilling'])->name('addBilling')->middleware(['auth:admin']);
+  Route::post('/editBilling', [App\Http\Controllers\Admin\AdminController::class, 'editBilling'])->name('editBilling')->middleware(['auth:admin']);
+  Route::post('/deleteBilling', [App\Http\Controllers\Admin\AdminController::class, 'deleteBilling'])->name('deleteBilling')->name('deleteBilling')->middleware(['auth:admin']);
+
 
 });
 

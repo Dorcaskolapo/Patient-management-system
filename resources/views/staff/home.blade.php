@@ -19,6 +19,7 @@
 </head>
 
 <body>
+    @include('sweetalert::alert')
     <div id="main-wrapper" class="show">
 
         <!-- start logo components -->

@@ -19,6 +19,7 @@
 </head>
 
 <body>
+    @include('sweetalert::alert')
     <div id="main-wrapper" class="show">
 
         <!-- start logo components -->
@@ -59,8 +60,8 @@
                             <span class="nav-label">Patients</span>
                         </a>
                         <ul class="list-unstyled mm-collapse">
-                            <li><a href="new-patient.html">New Patient</a></li>
-                            <li><a href="all-patients.html">All Patients</a></li>
+                            <li><a href="{{ url('/admin/patient') }}">New Patient</a></li>
+                            <li><a href="{{ url('/admin/allPatient') }}">All Patients</a></li>
                         </ul>
                     </li>
                     <li class="has-submenu">
@@ -69,25 +70,21 @@
                             <span class="nav-label">Prescriptions</span>
                         </a>
                         <ul class="list-unstyled mm-collapse">
-                            <li><a href="new-prescription.html">New Prescription</a></li>
-                            <li><a href="all-prescriptions.html">All Prescriptions</a></li>
+                            <li><a href="{{ url('/admin/prescription') }}">New Prescription</a></li>
+                            <li><a href="{{ url('/admin/allPrescription') }}">All Prescriptions</a></li>
                         </ul>
                     </li>
-                    <li class="has-submenu">
-                        <a href="add-drug.html">
+                    <li class="has-submenu active">
+                        <a href="{{ url('/admin/drug') }}">
                             <i class="fas fa-pills"></i>
                             <span class="nav-label">Add Drug</span>
                         </a>
                     </li>
-                    <li class="has-submenu">
-                        <a href="javascript:void()" class="has-arrow mm-collapsed">
+                    <li class="has-submenu active">
+                        <a href="{{ url('/admin/test') }}">
                             <i class="fas fa-heartbeat"></i>
-                            <span class="nav-label">Tests</span>
+                            <span class="nav-label">Add Test</span>
                         </a>
-                        <ul class="list-unstyled mm-collapse">
-                            <li><a href="add-test.html">Add Test</a></li>
-                            <li><a href="all-tests.html">All Tests</a></li>
-                        </ul>
                     </li>
                     <li class="has-submenu">
                         <a href="javascript:void()" class="has-arrow mm-collapsed">
@@ -95,8 +92,8 @@
                             <span class="nav-label">Billing</span>
                         </a>
                         <ul class="list-unstyled mm-collapse">
-                            <li><a href="create-invoice.html">Create Invoice</a></li>
-                            <li><a href="billing-list.html">Billing List</a></li>
+                            <li><a href="{{ url('/admin/billing') }}">Create Invoice</a></li>
+                            <li><a href="{{ url('/admin/allBilling') }}">Invoice List</a></li>
                         </ul>
                     </li>
                     <li class="has-submenu">
@@ -185,6 +182,10 @@
 
     <!-- Date Range Picker -->
     <script src="{{asset('assets/plugins/daterangepicker/daterangepicker.min.js')}}"></script>
+
+    <!-- Datatable -->
+    <script src="{{asset('assets/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('assets/js/init-tdatatable.js')}}"></script>
 
     <!-- Main Custom JQuery -->
     <script src="{{asset('assets/js/toggleFullScreen.js')}}"></script>
