@@ -74,13 +74,13 @@
                             <li><a href="{{ url('/admin/allPrescription') }}">All Prescriptions</a></li>
                         </ul>
                     </li>
-                    <li class="has-submenu active">
+                    <li class="has-submenu">
                         <a href="{{ url('/admin/drug') }}">
                             <i class="fas fa-pills"></i>
                             <span class="nav-label">Add Drug</span>
                         </a>
                     </li>
-                    <li class="has-submenu active">
+                    <li class="has-submenu">
                         <a href="{{ url('/admin/test') }}">
                             <i class="fas fa-heartbeat"></i>
                             <span class="nav-label">Add Test</span>
