@@ -17,13 +17,20 @@ class Staff extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'image',
-        'name', 
+        'lastname',
+        'othernames', 
         'email', 
         'password',
         'role',
+        'image',
         'phone_number',
         'address',
+        'dob',
+        'religion',
+        'marital_status',
+        'gender',
+        'title',
+        'bio',
     ];
 
     /**
