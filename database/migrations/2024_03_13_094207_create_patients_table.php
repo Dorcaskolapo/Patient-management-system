@@ -24,7 +24,6 @@ class CreatePatientsTable extends Migration
             $table->string('bloodgroup')->nullable();
             $table->string('genotype')->nullable();
             $table->string('allergies')->nullable();
-            $table->string('code')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

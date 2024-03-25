@@ -29,7 +29,6 @@ class Staff extends Authenticatable
         'religion',
         'marital_status',
         'gender',
-        'title',
         'bio',
     ];
 

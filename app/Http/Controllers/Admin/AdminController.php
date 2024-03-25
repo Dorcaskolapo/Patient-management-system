@@ -84,13 +84,21 @@ class AdminController extends Controller
 
     public function addStaff(Request $request){
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'email' => 'required',
+            'lastname' => 'required',
+            'othernames' => 'required',
+            'email' => 'required|unique:staffs',
             'password' => 'required',
             'phone_number' => 'required',
             'address' => 'required',
-            'password_confirmation' => 'required',
+            'confirm_password' => 'required',
             'role' => 'required',
+            'image' => 'required',
+            'bio' => 'required',
+            'religion' => 'required',
+            'dob' => 'required',
+            'marital_status' => 'required',
+            'gender' => 'required',
+
         ]);
 
         if($validator->fails()) {
@@ -98,20 +106,35 @@ class AdminController extends Controller
             return redirect()->back();
         }
 
-        if($request->password != $request->password_confirmation){
-            alert()->error('Oops!', 'password mismatch')->persistent('Close');
+        if($request->password == $request->confirm_password){
+            $password = bcrypt($request->password);
+        }else{
+            alert()->error('Oops!', 'Password mismatch')->persistent('Close');
             return redirect()->back();
         }
 
+        $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->lastname.'-'.$request->othernames)));
+        $imageUrl = null;
+        if($request->has('image')) {
+            $imageUrl = 'uploads/staff/'.$slug.'.'.$request->file('image')->getClientOriginalExtension();
+            $image = $request->file('image')->move('uploads/staff', $imageUrl);
+        }
         $role = Role::all();
 
         $newStaff = ([
-            'name' => $request->name,
+            'lastname' => $request->lastname,
+            'othernames' => $request->othernames,
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'phone_number' => $request->phone_number,
             'address' => $request->address,
             'role' => $request->role,
+            'bio' => $request->bio,
+            'slug' => $slug,
+            'image' => env('APP_URL').'/'.$imageUrl,
+            'marital_status' => $request->marital_status,
+            'religion' => $request->religion,
+            'gender' => $request->gender,
         ]);
 
         if(Staff::create($newStaff)){
