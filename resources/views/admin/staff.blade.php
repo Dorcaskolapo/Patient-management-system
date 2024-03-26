@@ -187,8 +187,8 @@
                 </div>
                 <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                        <li class="breadcrumb-item active"><a href="add-doctor.html">Add New Staff</a></li>
+                        <li class="breadcrumb-item"><a href="i{{ url('/admin/home') }}">Home</a></li>
+                        <li class="breadcrumb-item active"><a href="{{ url('/admin/staff') }}">Add New Staff</a></li>
                     </ol>
                 </div>
             </div>
@@ -304,12 +304,15 @@
                                         </div>
                                         <div class="col-xl-8">
                                             <div class="form-floating">
-                                                <textarea class="form-control" name="bio" id="bio" placeholder=":" rows="4"></textarea>
+                                                <textarea class="form-control" name="bio" id="bio" placeholder="" rows="4"></textarea>
                                                 <label for="bio">Bio</label>
                                             </div>
                                         </div>
                                         <br>
-                                        <span class="text-muted"> Authentication</span><br>
+                                        <div class="card-header">
+                                            <h6 class="card-title">Authentication</h6>
+                                        </div>
+                                        <hr>
                                         <div class="col-xl-6">
                                             <div class="form-floating">
                                                 <input type="password" class="form-control" id="password" name="password" placeholder="">
@@ -323,6 +326,7 @@
                                                 <label for="confirm-password">Confirm Password</label>
                                             </div>
                                         </div>
+                                        <br>
                                         <div class="form-group text-right">
                                             <button type="submit" class="btn btn-primary float-end">Add Staff</button>
                                         </div>

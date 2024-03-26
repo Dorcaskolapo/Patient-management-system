@@ -135,6 +135,7 @@ class AdminController extends Controller
             'marital_status' => $request->marital_status,
             'religion' => $request->religion,
             'gender' => $request->gender,
+            'dob' => $request->dob,
         ]);
 
         if(Staff::create($newStaff)){
@@ -145,6 +146,24 @@ class AdminController extends Controller
         alert()->error('Oops!', 'Something went wrong')->persistent('Close');
         return redirect()->back();
     }
+
+    // public function allStaff() {
+    //     $staff = Staff::all();
+    //     return view('admin.allStaff', compact('staff'));
+    // }
+
+    // public function allStaff() {
+    //     $staff = Staff::select('role', 'image', 'lastname', 'othernames')->get();
+    //     return view('admin.allStaff', compact('staff'));
+    // }
+
+
+    public function allStaff() {
+        $staffs = Staff::all(['role', 'image', 'lastname', 'othernames']); // Fetch required data from database
+        return view('admin.allStaff', compact('staffs')); // Pass data to view
+    }
+
+    
 
     public function addDrug(Request $request){
         $validator = Validator::make($request->all(), [
