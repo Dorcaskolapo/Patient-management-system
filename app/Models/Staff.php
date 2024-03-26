@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Staff extends Authenticatable
 {
+    protected $table = 'staff';
     use Notifiable, SoftDeletes;
 
     /**
@@ -55,5 +56,5 @@ class Staff extends Authenticatable
     public function role() {
         return $this->belongsTo(Role::class);
     }
-     
+
 }

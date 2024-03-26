@@ -86,7 +86,7 @@ class AdminController extends Controller
         $validator = Validator::make($request->all(), [
             'lastname' => 'required',
             'othernames' => 'required',
-            'email' => 'required|unique:staffs',
+            'email' => 'required|unique:staff',
             'password' => 'required',
             'phone_number' => 'required',
             'address' => 'required',
@@ -131,7 +131,7 @@ class AdminController extends Controller
             'role' => $request->role,
             'bio' => $request->bio,
             'slug' => $slug,
-            'image' => env('APP_URL').'/'.$imageUrl,
+            'image' => $imageUrl,
             'marital_status' => $request->marital_status,
             'religion' => $request->religion,
             'gender' => $request->gender,
