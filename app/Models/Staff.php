@@ -53,8 +53,8 @@ class Staff extends Authenticatable
         $this->notify(new StaffResetPassword($token));
     }
 
-    public function role() {
-        return $this->belongsTo(Role::class);
+    public function staffRole() {
+        return $this->belongsTo(Role::class, 'role');
     }
 
 }
