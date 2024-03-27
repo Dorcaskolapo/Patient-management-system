@@ -147,20 +147,99 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
-    // public function allStaff() {
-    //     $staff = Staff::all();
-    //     return view('admin.allStaff', compact('staff'));
-    // }
-
-    // public function allStaff() {
-    //     $staff = Staff::select('role', 'image', 'lastname', 'othernames')->get();
-    //     return view('admin.allStaff', compact('staff'));
-    // }
+    public function editStaff(Request $request)
+    {
+        if(!empty($request->staff_id) && !$staff = Staff::find($request->staff_id)){
+            alert()->error('Oops', 'Invalid Staff Information')->persistent('Close');
+            return redirect()->back();
+        }
 
 
-    public function allStaff() {
-        $staffs = Staff::all(['role', 'image', 'lastname', 'othernames']); // Fetch required data from database
-        return view('admin.allStaff', compact('staffs')); // Pass data to view
+        $slug = $staff->slug;
+        if(!empty($request->lastname) && $request->lastname != $staff->lastname){
+            $staff->lastname = $request->lastname;
+            $staff->othernames = $request->othernames;
+            $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->lastname.'-', $request->othernames)));
+            $staff->slug = $slug;
+        }
+
+        if(!empty($request->staffId) && $request->staffId != $staff->staffId){
+            $staff->staffId = $request->staffId;
+        }
+
+        if(!empty($request->email) && $request->email != $staff->email){
+            $staff->email = $request->email;
+        }
+
+        if(!empty($request->password) && $request->password != $staff->password){
+            $staff->password = $request->password;
+        }
+
+        if(!empty($request->phone_number) && $request->phone_number != $staff->phone_number){
+            $staff->phone_number = $request->phone_number;
+        }
+
+        if(!empty($request->address) && $request->address != $staff->address){
+            $staff->address = $request->address;
+        }
+
+        if(!empty($request->role) && $request->role != $staff->role){
+            $staff->role = $request->role;
+        }
+
+        if(!empty($request->bio) && $request->bio != $staff->bio){
+            $staff->bio = $request->bio;
+        }
+
+        if(!empty($request->marital_status) && $request->marital_status != $staff->marital_status){
+            $staff->marital_status = $request->marital_status;
+        }
+
+        if(!empty($request->religion) && $request->religion != $staff->religion){
+            $staff->religion = $request->religion;
+        }
+
+        if(!empty($request->gender) && $request->gender != $staff->gender){
+            $staff->gender = $request->gender;
+        }
+
+        if(!empty($request->dob) && $request->dob != $staff->dob){
+            $staff->dob = $request->dob;
+        }
+       
+
+        if($request->has('password') && !empty($request->password)){
+            if($request->password == $request->confirm_password){
+                $password = bcrypt($request->password);
+            }else{
+                alert()->error('Oops!', 'Password mismatch')->persistent('Close');
+                return redirect()->back();
+            }
+            $staff->password = $password;
+        }
+
+        if ($request->hasFile('image')) {
+            $imageUrl = 'uploads/staff/' . $slug . '.' . $request->file('image')->getClientOriginalExtension();
+            $image = $request->file('image')->move('uploads/staff', $imageUrl);
+            $staff->image = $imageUrl; 
+        }
+
+        if ($staff->save()) {
+            alert()->success('Changes Saved', 'Changes saved successfully')->persistent('Close');
+            return redirect()->back();
+        }
+    }
+
+    
+
+
+    public function allStaff() { 
+        $staffs = Staff::all();
+        $roles = Role::all();
+        return view('admin.allStaff', [
+            'staffs' => $staffs,
+            'roles' => $roles
+        ]);
     }
 
     
