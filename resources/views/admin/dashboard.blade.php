@@ -51,7 +51,6 @@
                         <ul class="list-unstyled mm-collapse">
                             <li><a href="{{ url('/admin/staff') }}">Add Staff</a></li>
                             <li><a href="{{ url('/admin/allStaff') }}">All Staffs</a></li>
-                            {{-- <li> <a href="doctor-profile.html">Staffs Profile</a> </li> --}}
                         </ul>
                     </li>
                     <li class="has-submenu">
@@ -106,7 +105,7 @@
             </nav>
             <div class="sidebar-widgets">
                 <div class="copyright text-center">
-                    <p class="mb-0"> {{ env('APP_NAME') }} Dashboard</p>
+                    <p class="mb-0"> Admin Dashboard</p>
                     <script>document.write(new Date().getFullYear())</script> &copy; {{ env('APP_NAME') }} 
                 </div>
             </div>
