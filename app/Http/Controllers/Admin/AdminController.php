@@ -39,9 +39,59 @@ class AdminController extends Controller
         return view('admin.prescription');
     }
 
+    //Patient Logic
     public function patient(){
+        $patient = Patient::all();
+        return view('admin.patient', [
+            'patient' => $patient,
+        ]);
+    }
 
-        return view('admin.patient');
+    public function addPatient(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'lastname' => 'required',
+            'othernames' => 'required',
+            'email' => 'required|unique:patients',
+            'phone_number' => 'required',
+            'address' => 'required',
+            'dob' => 'required',
+            'marital_status' => 'required',
+            'gender' => 'required',
+            'bloodgroup' => 'required',
+            'genotype' => 'required',
+            'allergies' => 'required',
+        ]);
+    
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+    
+        $patientCode = generatePatientCode($request->user()->id);
+    
+        $newPatient = [
+            'lastname' => $request->lastname,
+            'othernames' => $request->othernames,
+            'email' => $request->email,
+            'phone_number' => $request->phone_number,
+            'address' => $request->address,
+            'dob' => $request->dob,
+            'marital_status' => $request->marital_status,
+            'gender' => $request->gender,
+            'bloodgroup' => $request->bloodgroup,
+            'genotype' => $request->genotype,
+            'allergies' => $request->allergies,
+            'code' => $patientCode,
+        ];
+    
+        if ($request->has('allergies')) {
+            $newPatient['allergies'] = $request->allergies;
+        }
+
+        if (Patient::create($newPatient)) {
+            return redirect()->back()->with('success', 'Patient added successfully.');
+        }
+    
+        return redirect()->back()->with('error', 'Failed to add patient. Please try again.');
     }
 
 
