@@ -33,30 +33,6 @@ class AdminController extends Controller
         return view('admin.dashboard');
     }
 
-    // public function staff(){
-    //     $staff = Staff::get();
-    //     return view('admin.staff', [
-    //         'staff' => $staff
-    //     ]);
-    // }
-
-    public function staff(){
-
-        $roles = Role::all();
-
-        return view('admin.staff', [
-            'roles' => $roles,
-        ]);
-    }
-    
-    public function test(){
-
-        $tests = Test::all();
-
-        return view('admin.test', [
-            'tests' => $tests,
-        ]);
-    }
 
     public function prescription(){
 
@@ -68,19 +44,36 @@ class AdminController extends Controller
         return view('admin.patient');
     }
 
-    public function drug(){
-        
-        $drugs = Drug::all();
-
-        return view('admin.drug', [
-            'drugs' => $drugs,
-        ]);
-    }
 
     public function billing(){
 
         return view('admin.billing');
     }
+
+
+
+     //ALLSTAFF LOGIC
+
+    public function allStaff() { 
+        $staffs = Staff::all();
+        $roles = Role::all();
+        return view('admin.allStaff', [
+            'staffs' => $staffs,
+            'roles' => $roles
+        ]);
+    }
+
+    //STAFF LOGIC
+
+    public function staff(){
+
+        $roles = Role::all();
+
+        return view('admin.staff', [
+            'roles' => $roles,
+        ]);
+    }
+
 
     public function addStaff(Request $request){
         $validator = Validator::make($request->all(), [
@@ -230,19 +223,42 @@ class AdminController extends Controller
         }
     }
 
-    
-
-
-    public function allStaff() { 
-        $staffs = Staff::all();
-        $roles = Role::all();
-        return view('admin.allStaff', [
-            'staffs' => $staffs,
-            'roles' => $roles
+    public function deleteStaff(Request $request){
+        $validator = Validator::make($request->all(), [
+            'staff_id' => 'required',
         ]);
+
+        if($validator->fails()) {
+            alert()->error('Error', $validator->messages()->all()[0])->persistent('Close');
+            return redirect()->back();
+        }
+        if(!$staff = Staff::find($request->staff_id)){
+            alert()->error('Oops', 'Invalid Staff ')->persistent('Close');
+            return redirect()->back();
+        }
+        
+        if($staff->delete()){
+            alert()->success('Disable Successfully', '')->persistent('Close');
+            return redirect()->back();
+        }
+
+        alert()->error('Oops!', 'Something went wrong')->persistent('Close');
+        return redirect()->back(); 
     }
 
+
     
+
+    //DRUG LOGIC
+
+    public function drug(){
+        
+        $drugs = Drug::all();
+
+        return view('admin.drug', [
+            'drugs' => $drugs,
+        ]);
+    }
 
     public function addDrug(Request $request){
         $validator = Validator::make($request->all(), [
@@ -331,6 +347,21 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
+
+
+
+
+
+    //TEST LOGIC
+
+    public function test(){
+
+        $tests = Test::all();
+
+        return view('admin.test', [
+            'tests' => $tests,
+        ]);
+    }
 
     public function addTest(Request $request){
         $validator = Validator::make($request->all(), [
