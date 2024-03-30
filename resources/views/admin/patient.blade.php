@@ -41,11 +41,6 @@
                                                 <input type="text" class="form-control" name="othernames" id="othernames" placeholder="">
                                                 <label for="othernames">Othernames</label>
                                             </div>
-                                            <!-- Email -->
-                                            <div class="form-floating mb-3">
-                                                <input type="email" class="form-control" name="email" id="email" placeholder="">
-                                                <label for="email">Email</label>
-                                            </div>
                                             <!-- Date of Birth -->
                                             <div class="form-floating mb-3">
                                                 <input type="date" class="form-control" name="dob" id="dob" placeholder="">
@@ -113,7 +108,7 @@
                                                 <label for="allergies">Allergies (If any)</label>
                                             </div>
                                             <!-- Code -->
-                                            <input type="hidden" name="code" value="PAT{{ $patient->id }}">
+                                            {{-- <input type="hidden" name="code" value="PAT{{ $newPatient->id }}"> --}}
                                         </div>
                                     </div>
                                     <div class="form-group text-right mt-4">
