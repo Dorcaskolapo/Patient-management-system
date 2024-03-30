@@ -65,13 +65,23 @@ Route::group(['prefix' => 'admin'], function () {
   Route::post('/editTest', [App\Http\Controllers\Admin\AdminController::class, 'editTest'])->name('editTest')->middleware(['auth:admin']);
   Route::post('/deleteTest', [App\Http\Controllers\Admin\AdminController::class, 'deleteTest'])->name('deleteTest')->name('deleteTest')->middleware(['auth:admin']);
 
-  Route::get('/billing', [App\Http\Controllers\Admin\AdminController::class, 'billing'])->name('billing')->middleware(['auth:admin']);  
-  Route::get('/allBilling', [App\Http\Controllers\Admin\AdminController::class, 'allBilling'])->name('allBilling')->middleware(['auth:admin']);  
-  Route::post('/addBilling', [App\Http\Controllers\Admin\AdminController::class, 'addBilling'])->name('addBilling')->middleware(['auth:admin']);
-  Route::post('/editBilling', [App\Http\Controllers\Admin\AdminController::class, 'editBilling'])->name('editBilling')->middleware(['auth:admin']);
-  Route::post('/deleteBilling', [App\Http\Controllers\Admin\AdminController::class, 'deleteBilling'])->name('deleteBilling')->name('deleteBilling')->middleware(['auth:admin']);
+  // Route::get('/billing', [App\Http\Controllers\Admin\AdminController::class, 'billing'])->name('billing')->middleware(['auth:admin']);  
+  // Route::get('/allBilling', [App\Http\Controllers\Admin\AdminController::class, 'allBilling'])->name('allBilling')->middleware(['auth:admin']);  
+  // Route::post('/addBilling', [App\Http\Controllers\Admin\AdminController::class, 'addBilling'])->name('addBilling')->middleware(['auth:admin']);
+  // Route::post('/editBilling', [App\Http\Controllers\Admin\AdminController::class, 'editBilling'])->name('editBilling')->middleware(['auth:admin']);
+  // Route::post('/deleteBilling', [App\Http\Controllers\Admin\AdminController::class, 'deleteBilling'])->name('deleteBilling')->name('deleteBilling')->middleware(['auth:admin']);
 
+  Route::get('/genotype', [App\Http\Controllers\Admin\AdminController::class, 'genotype'])->name('genotype')->middleware(['auth:admin']);  
+  Route::get('/allGenotype', [App\Http\Controllers\Admin\AdminController::class, 'allGenotype'])->name('allGenotype')->middleware(['auth:admin']);  
+  Route::post('/addGenotype', [App\Http\Controllers\Admin\AdminController::class, 'addGenotype'])->name('addGenotype')->middleware(['auth:admin']);
+  Route::post('/editGenotype', [App\Http\Controllers\Admin\AdminController::class, 'editGenotype'])->name('editGenotype')->middleware(['auth:admin']);
+  Route::post('/deleteGenotype', [App\Http\Controllers\Admin\AdminController::class, 'deleteGenotype'])->name('deleteGenotype')->name('deleteGenotype')->middleware(['auth:admin']);
 
+  Route::get('/bloodgroup', [App\Http\Controllers\Admin\AdminController::class, 'bloodgroup'])->name('bloodgroup')->middleware(['auth:admin']);  
+  Route::get('/allBloodgroup', [App\Http\Controllers\Admin\AdminController::class, 'allBloodgroup'])->name('allBloodgroup')->middleware(['auth:admin']);  
+  Route::post('/addBloodgroup', [App\Http\Controllers\Admin\AdminController::class, 'addBloodgroup'])->name('addBloodgroup')->middleware(['auth:admin']);
+  Route::post('/editBloodgroup', [App\Http\Controllers\Admin\AdminController::class, 'editBloodgroup'])->name('editBloodgroup')->middleware(['auth:admin']);
+  Route::post('/deleteBloodgroup', [App\Http\Controllers\Admin\AdminController::class, 'deleteBloodgroup'])->name('deleteBloodgroup')->name('deleteBloodgroup')->middleware(['auth:admin']);
 });
 
 Route::group(['prefix' => 'staff'], function () {
