@@ -31,15 +31,15 @@
                                     @csrf
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <!-- Lastname -->
-                                            <div class="form-floating mb-3">
-                                                <input type="text" class="form-control" name="lastname" id="lastname" placeholder="">
-                                                <label for="lastname">Lastname</label>
-                                            </div>
                                             <!-- Othernames -->
                                             <div class="form-floating mb-3">
                                                 <input type="text" class="form-control" name="othernames" id="othernames" placeholder="">
                                                 <label for="othernames">Othernames</label>
+                                            </div>
+                                            <!-- Lastname -->
+                                            <div class="form-floating mb-3">
+                                                <input type="text" class="form-control" name="lastname" id="lastname" placeholder="">
+                                                <label for="lastname">Lastname</label>
                                             </div>
                                             <!-- Date of Birth -->
                                             <div class="form-floating mb-3">
@@ -74,31 +74,34 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6">
+                                            <!-- Address -->
+                                            <div class="form-floating mb-3">
+                                                <input type="text" class="form-control" name="address" id="address" placeholder="">
+                                                <label for="address">Address</label>
+                                            </div>
+                                        
+                                            <!-- Religion -->
+                                            <div class="form-floating mb-3">
+                                                <input type="text" class="form-control" name="religion" id="religion" placeholder="">
+                                                <label for="religion">Religion</label>
+                                            </div>
                                             <!-- Blood Group -->
                                             <div class="form-floating mb-3">
                                                 <select class="form-control form-select" name="bloodgroup" id="bloodgroup">
-                                                    <option>Select Blood Group</option>
-                                                    <option value="A+">A+</option>
-                                                    <option value="A-">A-</option>
-                                                    <option value="B+">B+</option>
-                                                    <option value="B-">B-</option>
-                                                    <option value="AB+">AB+</option>
-                                                    <option value="AB-">AB-</option>
-                                                    <option value="O+">O+</option>
-                                                    <option value="O-">O-</option>
+                                                    <option value="" selected>Select Bloodgroup</option>
+                                                    @foreach($bloodgroups as $bloodgroup)
+                                                        <option value="{{ $bloodgroup->id }}">{{ $bloodgroup->bloodgroup }}</option>
+                                                    @endforeach
                                                 </select>
-                                                <label for="bloodgroup">Blood Group</label>
+                                                <label for="bloodgroup">Bloodgroup</label>
                                             </div>
                                             <!-- Genotype -->
                                             <div class="form-floating mb-3">
                                                 <select class="form-control form-select" name="genotype" id="genotype">
-                                                    <option>Select Genotype</option>
-                                                    <option value="AA">AA</option>
-                                                    <option value="AS">AS</option>
-                                                    <option value="SS">SS</option>
-                                                    <option value="AC">AC</option>
-                                                    <option value="SC">SC</option>
-                                                    <option value="CC">CC</option>
+                                                    <option value="" selected>Select Genotype</option>
+                                                    @foreach($genotypes as $genotype)
+                                                        <option value="{{ $genotype->id }}">{{ $genotype->genotype }}</option>
+                                                    @endforeach
                                                 </select>
                                                 <label for="genotype">Genotype</label>
                                             </div>

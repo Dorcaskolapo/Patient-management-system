@@ -15,8 +15,8 @@ class CreatePatientsTable extends Migration
     {
         Schema::create('patients', function (Blueprint $table) {
             $table->id();
-            $table->string('othername');
-            $table->string('lastname');
+            $table->string('othernames')->nullable();
+            $table->string('lastname')->nullable();
             $table->date('dob')-> nullable();
             $table->string('marital_status')-> nullable();
             $table->string('gender')-> nullable();
@@ -24,6 +24,9 @@ class CreatePatientsTable extends Migration
             $table->string('bloodgroup')->nullable();
             $table->string('genotype')->nullable();
             $table->string('allergies')->nullable();
+            $table->string('religion')->nullable();
+            $table->string('address')->nullable();
+            $table->string('code')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

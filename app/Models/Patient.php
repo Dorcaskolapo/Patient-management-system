@@ -11,7 +11,7 @@ class Patient extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'othername',
+        'othernames',
         'lastname',
         'email',
         'dob',
@@ -21,7 +21,9 @@ class Patient extends Model
         'bloodgroup',
         'genotype',
         'allergies',
+        'religion',
         'code',
+        'address',
     ];
 
     public function prescriptions() {
