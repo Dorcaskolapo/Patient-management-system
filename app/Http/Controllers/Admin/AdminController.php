@@ -22,6 +22,8 @@ use App\Models\Prescription;
 use App\Models\Role;
 use App\Models\Staff;
 use App\Models\Test;
+use App\Models\Genotype;
+use App\Models\Bloodgroup;
 
 
 class AdminController extends Controller
@@ -41,10 +43,8 @@ class AdminController extends Controller
 
     //Patient Logic
     public function patient(){
-        $patient = Patient::all();
-        return view('admin.patient', [
-            'patient' => $patient,
-        ]);
+
+        return view('admin.patient');
     }
 
     public function addPatient(Request $request) {
@@ -495,4 +495,177 @@ class AdminController extends Controller
     }
 
 
+    //GENOTYPE LOGIC
+
+    public function genotype(){
+
+        $genotypes = Genotype::all();
+
+        return view('admin.genotype', [
+            'genotypes' => $genotypes,
+        ]);
+    }
+
+    public function addGenotype(Request $request){
+        $validator = Validator::make($request->all(), [
+            'genotype' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            alert()->error('Error', $validator->messages()->all()[0])->persistent('Close');
+            return redirect()->back();
+        }
+
+        $newGenotype = [
+            'genotype' => $request->genotype,
+        ];
+
+        if (Genotype::create($newGenotype)) {
+            alert()->success('Success', 'Genotype added successfully')->persistent('Close');
+            return redirect()->back();
+        }
+
+        alert()->error('Error', 'Failed to add genotype')->persistent('Close');
+        return redirect()->back();
+    }
+
+    public function editGenotype(Request $request){
+        $validator = Validator::make($request->all(), [
+            'genotype_id' => 'required',
+        ]);
+
+        if($validator->fails()) {
+            alert()->error('Error', $validator->messages()->all()[0])->persistent('Close');
+            return redirect()->back();
+        }
+
+        if(!$genotype = Genotype::find($request->genotype_id)){
+            alert()->error('Oops', 'Invalid Genotype')->persistent('Close');
+            return redirect()->back();
+        }
+
+        if(!empty($request->genotype) && $request->genotype != $test->genotype){
+            $test->genotype = $request->genotype;
+        }
+
+        if($genotype->save()){
+            alert()->success('Changes Saved', 'Genotype changes saved successfully')->persistent('Close');
+            return redirect()->back();
+        }
+
+        alert()->error('Oops!', 'Something went wrong')->persistent('Close');
+        return redirect()->back();
+    }
+
+    public function deleteGenotype(Request $request){
+        $validator = Validator::make($request->all(), [
+            'genotype_id' => 'required',
+        ]);
+
+        if($validator->fails()) {
+            alert()->error('Error', $validator->messages()->all()[0])->persistent('Close');
+            return redirect()->back();
+        }
+
+        if(!$genotype = Genotype::find($request->genotype_id)){
+            alert()->error('Oops', 'Invalid Test')->persistent('Close');
+            return redirect()->back();
+        }
+
+        if($genotype->delete()) {
+            alert()->success('Deleted', 'Genotype successfully deleted');
+            return redirect()->back();
+        }
+
+        alert()->error('Oops!', 'Something went wrong')->persistent('Close');
+        return redirect()->back();
+    }
+
+    //BLOODGROUP LOGIC
+
+    public function bloodgroup(){
+
+        $bloodgroups = Bloodgroup::all();
+
+        return view('admin.bloodgroup', [
+            'bloodgroups' => $bloodgroups,
+        ]);
+    }
+
+    public function addBloodgroup(Request $request){
+        $validator = Validator::make($request->all(), [
+            'bloodgroup' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            alert()->error('Error', $validator->messages()->all()[0])->persistent('Close');
+            return redirect()->back();
+        }
+
+        $newBloodgroup = [
+            'bloodgroup' => $request->bloodgroup,
+        ];
+
+        if (Bloodgroup::create($newBloodgroup)) {
+            alert()->success('Success', 'Bloodgroup added successfully')->persistent('Close');
+            return redirect()->back();
+        }
+
+        alert()->error('Error', 'Failed to add bloodgroup')->persistent('Close');
+        return redirect()->back();
+    }
+
+    public function editBloodgroup(Request $request){
+        $validator = Validator::make($request->all(), [
+            'bloodgroup_id' => 'required',
+        ]);
+
+        if($validator->fails()) {
+            alert()->error('Error', $validator->messages()->all()[0])->persistent('Close');
+            return redirect()->back();
+        }
+
+        if(!$bloodgroup = Bloodgroup::find($request->bloodgroup_id)){
+            alert()->error('Oops', 'Invalid Bloodgroup')->persistent('Close');
+            return redirect()->back();
+        }
+
+        if(!empty($request->bloodgroup) && $request->bloodgroup != $test->bloodgroup){
+            $test->bloodgroup = $request->bloodgroup;
+        }
+
+        if($bloodgroup->save()){
+            alert()->success('Changes Saved', 'Bloodgroup changes saved successfully')->persistent('Close');
+            return redirect()->back();
+        }
+
+        alert()->error('Oops!', 'Something went wrong')->persistent('Close');
+        return redirect()->back();
+    }
+
+    public function deleteBloodgroup(Request $request){
+        $validator = Validator::make($request->all(), [
+            'bloodgroup_id' => 'required',
+        ]);
+
+        if($validator->fails()) {
+            alert()->error('Error', $validator->messages()->all()[0])->persistent('Close');
+            return redirect()->back();
+        }
+
+        if(!$bloodgroup = Bloodgroup::find($request->bloodgroup_id)){
+            alert()->error('Oops', 'Invalid Test')->persistent('Close');
+            return redirect()->back();
+        }
+
+        if($bloodgroup->delete()) {
+            alert()->success('Deleted', 'Bloodgroup successfully deleted');
+            return redirect()->back();
+        }
+
+        alert()->error('Oops!', 'Something went wrong')->persistent('Close');
+        return redirect()->back();
+    }
 }
+
+

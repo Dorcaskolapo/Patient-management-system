@@ -86,6 +86,18 @@
                         </a>
                     </li>
                     <li class="has-submenu">
+                        <a href="{{ url('/admin/bloodgroup') }}">
+                            <i class="fas fa-tint"></i>
+                            <span class="nav-label">Add Bloodgroup</span>
+                        </a>
+                    </li>
+                    <li class="has-submenu">
+                        <a href="{{ url('/admin/genotype') }}">
+                            <i class="fas fa-tint"></i>
+                            <span class="nav-label">Add Genotype</span>
+                        </a>
+                    </li>
+                    {{-- <li class="has-submenu">
                         <a href="javascript:void()" class="has-arrow mm-collapsed">
                             <i class="fas fa-file-invoice"></i>
                             <span class="nav-label">Billing</span>
@@ -94,7 +106,7 @@
                             <li><a href="{{ url('/admin/billing') }}">Create Invoice</a></li>
                             <li><a href="{{ url('/admin/allBilling') }}">Invoice List</a></li>
                         </ul>
-                    </li>
+                    </li> --}}
                     <li class="has-submenu">
                         <a href="{{ url('/admin/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             <i class="fas fa-sign-in-alt"></i>
