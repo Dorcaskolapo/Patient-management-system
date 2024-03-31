@@ -59,7 +59,7 @@
                                                                 <div class="row align-items-start">
                                                                     <div class="col">
                                                                         <div class="form-group">
-                                                                            <input type="text" class="form-control" placeholder="Enter genotype name" name="genotype" value="{{ $genotype->genotype }}">
+                                                                            <input type="text" class="form-control" placeholder="Enter Genotype" name="genotype" value="{{ $genotype->genotype }}">
                                                                         </div>
                                                                     </div>
                                                                 </div>

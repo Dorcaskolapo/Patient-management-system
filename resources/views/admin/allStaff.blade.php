@@ -23,10 +23,11 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table id="example2" class="display nowrap">
+                                    <table id="example1" class="display nowrap">
                                         <thead>
                                             <tr>
-                                                <th></th>
+                                                <th>#</th>
+                                                <th>Image</th>
                                                 <th>Last Name</th>
                                                 <th>Othernames</th>
                                                 <th>Email</th>
@@ -39,6 +40,7 @@
                                         <tbody>
                                             @foreach($staffs as $staff)
                                                 <tr>
+                                                    <td>{{ $loop->iteration }}</td>
                                                     <td><img class="rounded-circle" width="35" src="{{ asset($staff->image) }}" alt=""></td>
                                                     <td>{{ $staff->lastname }} </td>
                                                     <td>{{ $staff->othernames }}</td>
@@ -51,7 +53,7 @@
                                                             class='mr-4'>
                                                             <span class='fas fa-pencil-alt tbl-edit'></span>
                                                         </a>
-                                                        <a class='mr-4 delet' data-bs-toggle='modal' data-bs-target="#deleteStaff">
+                                                        <a class='mr-4 delet' data-bs-toggle='modal' data-bs-target="#modal-delete">
                                                             <span class='fas fa-trash-alt tbl-delet'></span>
                                                         </a>
                                                     </td>
@@ -186,7 +188,7 @@
                                                                                                 </div>
                                                                                                 <div class="col-xl-8">
                                                                                                     <div class="form-floating">
-                                                                                                        <textarea class="form-control" name="bio" value="{{ $staff->bio}}" rows="4"></textarea>
+                                                                                                        <textarea class="form-control" name="bio" rows="4" value="{{ $staff->bio}}" ></textarea>
                                                                                                         <label for="bio">Bio</label>
                                                                                                     </div>
                                                                                                 </div>
@@ -210,7 +212,7 @@
 
 
                                                 <!--Delete Modal -->
-                                                <div id="deleteStaff{{$staff->id}}" class="modal fade" tabindex="-1" aria-hidden="true" data-bs-backdrop="static" style="display: none;">
+                                                <div class="modal fade" id="modal-delete" tabindex="-1" aria-labelledby="modal-title-delete-row" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered">
                                                         <div class="modal-content">
                                                             <div class="modal-body text-center p-5">
