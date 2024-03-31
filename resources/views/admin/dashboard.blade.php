@@ -63,7 +63,7 @@
                             <li><a href="{{ url('/admin/allPatient') }}">All Patients</a></li>
                         </ul>
                     </li>
-                    <li class="has-submenu">
+                    {{-- <li class="has-submenu">
                         <a href="javascript:void()" class="has-arrow mm-collapsed">
                             <i class="fas fa-book-medical"></i>
                             <span class="nav-label">Prescriptions</span>
@@ -71,6 +71,16 @@
                         <ul class="list-unstyled mm-collapse">
                             <li><a href="{{ url('/admin/prescription') }}">New Prescription</a></li>
                             <li><a href="{{ url('/admin/allPrescription') }}">All Prescriptions</a></li>
+                        </ul>
+                    </li> --}}
+                    <li class="has-submenu">
+                        <a href="javascript:void()" class="has-arrow mm-collapsed">
+                            <i class="fas fa-tint"></i>
+                            <span class="nav-label">Bloodgroup & Genotype</span>
+                        </a>
+                        <ul class="list-unstyled mm-collapse">
+                            <li><a href="{{ url('/admin/bloodgroup') }}">Add Bloodgroup</a></li>
+                            <li><a href="{{ url('/admin/genotype') }}">Add Genotype</a></li>
                         </ul>
                     </li>
                     <li class="has-submenu">
@@ -83,18 +93,6 @@
                         <a href="{{ url('/admin/test') }}">
                             <i class="fas fa-heartbeat"></i>
                             <span class="nav-label">Add Test</span>
-                        </a>
-                    </li>
-                    <li class="has-submenu">
-                        <a href="{{ url('/admin/bloodgroup') }}">
-                            <i class="fas fa-tint"></i>
-                            <span class="nav-label">Add Bloodgroup</span>
-                        </a>
-                    </li>
-                    <li class="has-submenu">
-                        <a href="{{ url('/admin/genotype') }}">
-                            <i class="fas fa-tint"></i>
-                            <span class="nav-label">Add Genotype</span>
                         </a>
                     </li>
                     {{-- <li class="has-submenu">

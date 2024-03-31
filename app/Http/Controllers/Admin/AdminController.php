@@ -41,59 +41,153 @@ class AdminController extends Controller
         return view('admin.prescription');
     }
 
+    //ALLPATIENT LOGIC
+
+    public function allPatient() {
+        $patients = Patient::all();
+        $newPatient = Patient::latest()->first();
+        $bloodgroups = Bloodgroup::all();
+        $genotypes = Genotype::all();
+        return view('admin.allPatient', [
+            'patients' => $patients,
+            'genotypes' => $genotypes,
+            'bloodgroups' => $bloodgroups,
+            'newPatient' => $newPatient,
+        ]);
+    }
     //Patient Logic
     public function patient(){
-
-        return view('admin.patient');
+        $genotypes = Genotype::all();
+        $bloodgroups = Bloodgroup::all();
+        return view('admin.patient',[
+            'genotypes' => $genotypes,
+            'bloodgroups' => $bloodgroups,
+        ]);
     }
 
-    public function addPatient(Request $request) {
+    public function addPatient(Request $request){
+
         $validator = Validator::make($request->all(), [
             'lastname' => 'required',
             'othernames' => 'required',
-            'email' => 'required|unique:patients',
             'phone_number' => 'required',
             'address' => 'required',
             'dob' => 'required',
             'marital_status' => 'required',
+            'religion' => 'required',
             'gender' => 'required',
             'bloodgroup' => 'required',
             'genotype' => 'required',
-            'allergies' => 'required',
+            'allergies' => 'nullable',
         ]);
-    
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
+        
+
+        if($validator->fails()) {
+            alert()->error('Error', $validator->messages()->all()[0])->persistent('Close');
+            return redirect()->back();
         }
-    
-        $patientCode = generatePatientCode($request->user()->id);
-    
-        $newPatient = [
+
+        $allergies = $request->filled('allergies') ? $request->allergies : 'None';
+
+        $newPatient = ([
             'lastname' => $request->lastname,
             'othernames' => $request->othernames,
-            'email' => $request->email,
             'phone_number' => $request->phone_number,
             'address' => $request->address,
             'dob' => $request->dob,
             'marital_status' => $request->marital_status,
+            'religion' => $request->religion,
             'gender' => $request->gender,
-            'bloodgroup' => $request->bloodgroup,
-            'genotype' => $request->genotype,
-            'allergies' => $request->allergies,
-            'code' => $patientCode,
-        ];
-    
-        if ($request->has('allergies')) {
-            $newPatient['allergies'] = $request->allergies;
+            'bloodgroup' =>  $request->bloodgroup,
+            'genotype' =>  $request->genotype,
+            'allergies' => $allergies,
+        ]);
+
+        if(Patient::create($newPatient)){
+            alert()->success('Changes Saved', 'Patient added successfully')->persistent('Close');
+            return redirect()->back();
         }
 
-        if (Patient::create($newPatient)) {
-            return redirect()->back()->with('success', 'Patient added successfully.');
-        }
-    
-        return redirect()->back()->with('error', 'Failed to add patient. Please try again.');
+        alert()->error('Oops!', 'Something went wrong')->persistent('Close');
+        return redirect()->back();
     }
 
+    public function editPatient(Request $request)
+    {
+        if(!empty($request->patient_id) && !$patient = Patient::find($request->patient_id)){
+            alert()->error('Oops', 'Invalid Patient Information')->persistent('Close');
+            return redirect()->back();
+        }
+
+        if(!empty($request->patientId) && $request->patientId != $patient->patientId){
+            $patient->patientId = $request->patientId;
+        }
+
+        if(!empty($request->phone_number) && $request->phone_number != $patient->phone_number){
+            $patient->phone_number = $request->phone_number;
+        }
+
+        if(!empty($request->address) && $request->address != $patient->address){
+            $patient->address = $request->address;
+        }
+
+        if(!empty($request->marital_status) && $request->marital_status != $patient->marital_status){
+            $patient->marital_status = $request->marital_status;
+        }
+
+        if(!empty($request->religion) && $request->religion != $patient->religion){
+            $patient->religion = $request->religion;
+        }
+
+        if(!empty($request->gender) && $request->gender != $patient->gender){
+            $patient->gender = $request->gender;
+        }
+
+        if(!empty($request->dob) && $request->dob != $patient->dob){
+            $patient->dob = $request->dob;
+        }
+
+        if(!empty($request->bloodgroup) && $request->bloodgroup != $patient->bloodgroup){
+            $patient->bloodgroup = $request->bloodgroup;
+        }
+
+        if(!empty($request->genotype) && $request->genotype != $patient->genotype){
+            $patient->genotype = $request->genotype;
+        }
+
+        if(!empty($request->allergies) && $request->allergies != $patient->allergies){
+            $patient->allergies = $request->allergies;
+        }
+
+        if ($patient->save()) {
+            alert()->success('Changes Saved', 'Changes saved successfully')->persistent('Close');
+            return redirect()->back();
+        }
+    }
+
+    public function deletePatient(Request $request){
+        $validator = Validator::make($request->all(), [
+            'patient_id' => 'required',
+        ]);
+
+        if($validator->fails()) {
+            alert()->error('Error', $validator->messages()->all()[0])->persistent('Close');
+            return redirect()->back();
+        }
+
+        if(!$patient = Patient::find($request->patient_id)){
+            alert()->error('Oops', 'Invalid Patient')->persistent('Close');
+            return redirect()->back();
+        }
+
+        if($patient->delete()) {
+            alert()->success('Deleted', 'Patient successfully deleted');
+            return redirect()->back();
+        }
+
+        alert()->error('Oops!', 'Something went wrong')->persistent('Close');
+        return redirect()->back();
+    }
 
     public function billing(){
 
@@ -102,7 +196,7 @@ class AdminController extends Controller
 
 
 
-     //ALLSTAFF LOGIC
+    //ALLSTAFF LOGIC
 
     public function allStaff() { 
         $staffs = Staff::all();
@@ -288,7 +382,7 @@ class AdminController extends Controller
         }
         
         if($staff->delete()){
-            alert()->success('Disable Successfully', '')->persistent('Close');
+            alert()->success('Deleted Successfully', '')->persistent('Close');
             return redirect()->back();
         }
 
@@ -544,8 +638,8 @@ class AdminController extends Controller
             return redirect()->back();
         }
 
-        if(!empty($request->genotype) && $request->genotype != $test->genotype){
-            $test->genotype = $request->genotype;
+        if(!empty($request->genotype) && $request->genotype != $genotype->genotype){
+            $genotype->genotype = $request->genotype;
         }
 
         if($genotype->save()){
@@ -568,7 +662,7 @@ class AdminController extends Controller
         }
 
         if(!$genotype = Genotype::find($request->genotype_id)){
-            alert()->error('Oops', 'Invalid Test')->persistent('Close');
+            alert()->error('Oops', 'Invalid Genotype')->persistent('Close');
             return redirect()->back();
         }
 
@@ -630,8 +724,8 @@ class AdminController extends Controller
             return redirect()->back();
         }
 
-        if(!empty($request->bloodgroup) && $request->bloodgroup != $test->bloodgroup){
-            $test->bloodgroup = $request->bloodgroup;
+        if(!empty($request->bloodgroup) && $request->bloodgroup != $bloodgroup->bloodgroup){
+            $bloodgroup->bloodgroup = $request->bloodgroup;
         }
 
         if($bloodgroup->save()){
@@ -654,7 +748,7 @@ class AdminController extends Controller
         }
 
         if(!$bloodgroup = Bloodgroup::find($request->bloodgroup_id)){
-            alert()->error('Oops', 'Invalid Test')->persistent('Close');
+            alert()->error('Oops', 'Invalid Bloodgroup')->persistent('Close');
             return redirect()->back();
         }
 
