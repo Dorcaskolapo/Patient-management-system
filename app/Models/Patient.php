@@ -22,7 +22,6 @@ class Patient extends Model
         'genotype',
         'allergies',
         'religion',
-        'code',
         'address',
     ];
 

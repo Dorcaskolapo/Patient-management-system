@@ -26,6 +26,7 @@
                                     <table id="example1" class="display ">
                                         <thead>
                                             <tr>
+                                                <th>Code</th>
                                                 <th scope="col">Last Name</th>
                                                 <th scope="col">Othernames</th>
                                                 <th scope="col">Mobile No.</th>
@@ -36,11 +37,16 @@
                                         <tbody>
                                             @foreach($patients as $patient)
                                                 <tr>
+                                                    {{-- <td scope="row">PAT-{{ $patient->id }}</td> --}}
+                                                    <td scope="row">PAT-<?php echo sprintf("%03d", $patient->id); ?></td>
                                                     <td scope="row">{{ $patient->lastname }} </td>
                                                     <td scope="row">{{ $patient->othernames }}</td>
                                                     <td scope="row">{{ $patient->phone_number }}</td>
                                                     <td scope="row">{{ $patient->marital_status }}</td>
                                                     <td scope="row">
+                                                        <a class='mr-4 vue'>
+                                                            <span class='fa fa-eye tbl-eye' aria-hidden='true'></span>
+                                                        </a>
                                                         <a data-bs-toggle='modal' data-bs-target='#modal-edit' class='mr-4'>
                                                             <span class='fas fa-pencil-alt tbl-edit'></span>
                                                         </a>

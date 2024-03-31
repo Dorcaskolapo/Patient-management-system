@@ -41,9 +41,6 @@ class AdminController extends Controller
         return view('admin.prescription');
     }
 
-    public function generatePatientCode($userId) {
-        return 'PAT' . $userId;
-    }
     //ALLPATIENT LOGIC
 
     public function allPatient() {
@@ -69,9 +66,6 @@ class AdminController extends Controller
     }
 
     public function addPatient(Request $request){
-        // Generate the unique code based on the patient's ID
-        $patientCode = generatePatientCode($request->user()->id);
-        $request->merge(['code' => $patientCode]);
 
         $validator = Validator::make($request->all(), [
             'lastname' => 'required',
@@ -85,8 +79,8 @@ class AdminController extends Controller
             'bloodgroup' => 'required',
             'genotype' => 'required',
             'allergies' => 'nullable',
-            'code' => 'required',
         ]);
+        
 
         if($validator->fails()) {
             alert()->error('Error', $validator->messages()->all()[0])->persistent('Close');
@@ -107,7 +101,6 @@ class AdminController extends Controller
             'bloodgroup' =>  $request->bloodgroup,
             'genotype' =>  $request->genotype,
             'allergies' => $allergies,
-            'code' => $patientCode,
         ]);
 
         if(Patient::create($newPatient)){
