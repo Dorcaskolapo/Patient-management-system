@@ -4,13 +4,16 @@
 
 @php
     $staff = Auth::guard('staff')->user();
+    $name = $staff->lastname .' ' . $staff->othernames;
+
+    
 @endphp
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ env('APP_NAME') }} | staff Dashboard</title>
+    <title>{{ env('APP_NAME') }} | Staff Dashboard</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" href="{{asset('assets/images/favicon-32x32.png')}}">
     <!-- Base Styling  -->
@@ -49,46 +52,52 @@
                             <span class="nav-label">Patients</span>
                         </a>
                         <ul class="list-unstyled mm-collapse">
-                            <li><a href="new-patient.html">New Patient</a></li>
-                            <li><a href="all-patients.html">All Patients</a></li>
+                            <li><a href="{{ url('/staff/patient') }}">New Patient</a></li>
+                            <li><a href="{{ url('/staff/allPatient') }}">All Patients</a></li>
                         </ul>
                     </li>
-                    <li class="has-submenu">
+                    {{-- <li class="has-submenu">
                         <a href="javascript:void()" class="has-arrow mm-collapsed">
                             <i class="fas fa-book-medical"></i>
                             <span class="nav-label">Prescriptions</span>
                         </a>
                         <ul class="list-unstyled mm-collapse">
-                            <li><a href="new-prescription.html">New Prescription</a></li>
-                            <li><a href="all-prescriptions.html">All Prescriptions</a></li>
+                            <li><a href="{{ url('/staff/prescription') }}">New Prescription</a></li>
+                            <li><a href="{{ url('/staff/allPrescription') }}">All Prescriptions</a></li>
+                        </ul>
+                    </li> --}}
+                    <li class="has-submenu">
+                        <a href="javascript:void()" class="has-arrow mm-collapsed">
+                            <i class="fas fa-tint"></i>
+                            <span class="nav-label">Bloodgroup & Genotype</span>
+                        </a>
+                        <ul class="list-unstyled mm-collapse">
+                            <li><a href="{{ url('/staff/bloodgroup') }}">Add Bloodgroup</a></li>
+                            <li><a href="{{ url('/staff/genotype') }}">Add Genotype</a></li>
                         </ul>
                     </li>
                     <li class="has-submenu">
-                        <a href="add-drug.html">
+                        <a href="{{ url('/staff/drug') }}">
                             <i class="fas fa-pills"></i>
                             <span class="nav-label">Add Drug</span>
                         </a>
                     </li>
                     <li class="has-submenu">
-                        <a href="javascript:void()" class="has-arrow mm-collapsed">
+                        <a href="{{ url('/staff/test') }}">
                             <i class="fas fa-heartbeat"></i>
-                            <span class="nav-label">Tests</span>
+                            <span class="nav-label">Add Test</span>
                         </a>
-                        <ul class="list-unstyled mm-collapse">
-                            <li><a href="add-test.html">Add Test</a></li>
-                            <li><a href="all-tests.html">All Tests</a></li>
-                        </ul>
                     </li>
-                    <li class="has-submenu">
+                    {{-- <li class="has-submenu">
                         <a href="javascript:void()" class="has-arrow mm-collapsed">
                             <i class="fas fa-file-invoice"></i>
                             <span class="nav-label">Billing</span>
                         </a>
                         <ul class="list-unstyled mm-collapse">
-                            <li><a href="create-invoice.html">Create Invoice</a></li>
-                            <li><a href="billing-list.html">Billing List</a></li>
+                            <li><a href="{{ url('/staff/billing') }}">Create Invoice</a></li>
+                            <li><a href="{{ url('/staff/allBilling') }}">Invoice List</a></li>
                         </ul>
-                    </li>
+                    </li> --}}
                     <li class="has-submenu">
                         <a href="{{ url('/staff/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             <i class="fas fa-sign-in-alt"></i>
@@ -99,7 +108,7 @@
             </nav>
             <div class="sidebar-widgets">
                 <div class="copyright text-center">
-                    <p class="mb-0"> {{ env('APP_NAME') }} Dashboard</p>
+                    <p class="mb-0"> Staff Dashboard</p>
                     <script>document.write(new Date().getFullYear())</script> &copy; {{ env('APP_NAME') }} 
                 </div>
             </div>
@@ -127,8 +136,8 @@
                             <div class="account-control">
                                 <a class="login header-profile" href="#" title="Sign in">
                                     <div class="header-info">
-                                        <span>{{ $staff->name }}</span>
-                                        <small>staff</small>
+                                        <span>{{ $staff->lastname .' '. $staff->othernames}}</span>
+                                        <small>Staff</small>
                                     </div>
                                     <img src="{{asset('assets/images/client.jpg')}}" alt="people">
                                 </a>
@@ -141,7 +150,9 @@
                                         <a href="{{ url('/staff/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                             <i class="fas fa-sign-in-alt"></i>
                                             <span class="ml-2">Logout </span>
-                                            <form id="logout-form" action="{{ url('/staff/logout') }}" method="POST" style="display: none;">@csrf</form>
+                                            <form id="logout-form" action="{{ url('/staff/logout') }}" method="POST" style="display: none;">
+                                                @csrf
+                                            </form>
                                         </a>
                                     </div>
                                 </div>
@@ -175,6 +186,10 @@
 
     <!-- Date Range Picker -->
     <script src="{{asset('assets/plugins/daterangepicker/daterangepicker.min.js')}}"></script>
+
+    <!-- Datatable -->
+    <script src="{{asset('assets/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('assets/js/init-tdatatable.js')}}"></script>
 
     <!-- Main Custom JQuery -->
     <script src="{{asset('assets/js/toggleFullScreen.js')}}"></script>
