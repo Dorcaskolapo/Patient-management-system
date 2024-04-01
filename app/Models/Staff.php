@@ -31,6 +31,7 @@ class Staff extends Authenticatable
         'marital_status',
         'gender',
         'bio',
+        'slug',
     ];
 
     /**

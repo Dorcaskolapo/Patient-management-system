@@ -55,6 +55,14 @@ class AdminController extends Controller
             'newPatient' => $newPatient,
         ]);
     }
+
+    public function viewPatient($slug){
+        $patient = Patient::where('slug', $slug)->firstOrFail();
+        return view('admin.viewPatient',[
+            'patient' => $patient,
+        ]);
+    }
+
     //Patient Logic
     public function patient(){
         $genotypes = Genotype::all();
@@ -86,7 +94,7 @@ class AdminController extends Controller
             alert()->error('Error', $validator->messages()->all()[0])->persistent('Close');
             return redirect()->back();
         }
-
+        $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->lastname.'-'.$request->othernames)));
         $allergies = $request->filled('allergies') ? $request->allergies : 'None';
 
         $newPatient = ([
@@ -101,6 +109,7 @@ class AdminController extends Controller
             'bloodgroup' =>  $request->bloodgroup,
             'genotype' =>  $request->genotype,
             'allergies' => $allergies,
+            'slug' => $slug,
         ]);
 
         if(Patient::create($newPatient)){
@@ -117,6 +126,14 @@ class AdminController extends Controller
         if(!empty($request->patient_id) && !$patient = Patient::find($request->patient_id)){
             alert()->error('Oops', 'Invalid Patient Information')->persistent('Close');
             return redirect()->back();
+        }
+
+        $slug = $staff->slug;
+        if(!empty($request->lastname) && $request->lastname != $staff->lastname){
+            $staff->lastname = $request->lastname;
+            $staff->othernames = $request->othernames;
+            $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->lastname.'-', $request->othernames)));
+            $staff->slug = $slug;
         }
 
         if(!empty($request->patientId) && $request->patientId != $patient->patientId){

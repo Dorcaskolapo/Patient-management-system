@@ -44,7 +44,7 @@
                                                     <td scope="row">{{ $patient->phone_number }}</td>
                                                     <td scope="row">{{ $patient->marital_status }}</td>
                                                     <td scope="row">
-                                                        <a class='mr-4 vue'>
+                                                        <a href="{{ url('/admin/viewPatient/'.$patient->slug) }}" class='mr-4 vue'>
                                                             <span class='fa fa-eye tbl-eye' aria-hidden='true'></span>
                                                         </a>
                                                         <a data-bs-toggle='modal' data-bs-target='#modal-edit' class='mr-4'>
@@ -100,11 +100,12 @@
                                                                                                     <div class="form-floating mb-3">
                                                                                                         <select class="form-control form-select" name="marital_status" id="marital_status">
                                                                                                             <option>Select Marital Status</option>
-                                                                                                            <option>Single</option>
-                                                                                                            <option>Married</option>
-                                                                                                            <option>Divorced</option>
-                                                                                                            <option>Widow</option>
-                                                                                                            <option>Widower</option>
+                                                                                                            <option value="Single" @if($patient->marital_status == 'Single') selected @endif>Single</option>
+                                                                                                            <option value="Married" @if($patient->marital_status == 'Married') selected @endif>Married</option>
+                                                                                                            <option value="Divorced" @if($patient->marital_status == 'Divorced') selected @endif>Divorced</option>
+                                                                                                            <option value="Widow" @if($patient->marital_status == 'Widow') selected @endif>Widow</option>
+                                                                                                            <option value="Widower" @if($patient->marital_status == 'Widower') selected @endif>Widower</option>
+
                                                                                                         </select>
                                                                                                         <label for="marital_status">Marital Status</label>
                                                                                                     </div>
@@ -112,8 +113,8 @@
                                                                                                     <div class="form-floating mb-3">
                                                                                                         <select class="form-control form-select" name="gender" id="gender">
                                                                                                             <option>Choose A Gender</option>
-                                                                                                            <option value="Female">Female</option>
-                                                                                                            <option value="Male">Male</option>
+                                                                                                            <option value="Female" @if($patient->gender == 'Female') selected @endif>Female</option>
+                                                                                                            <option value="Male" @if($patient->gender == 'Male') selected @endif>Male</option>                                                                                                            
                                                                                                         </select>
                                                                                                         <label for="gender">Gender</label>
                                                                                                     </div>
@@ -138,21 +139,21 @@
                                                                                                     <!-- Blood Group -->
                                                                                                     <div class="form-floating mb-3">
                                                                                                         <select class="form-control form-select" name="bloodgroup" id="bloodgroup">
-                                                                                                            <option value="" selected>Select Blood Group</option>
+                                                                                                            <option value="" @if($patient->bloodgroup == '') selected @endif>Select Blood Group</option>
                                                                                                             @foreach($bloodgroups as $bloodgroup)
-                                                                                                                <option value="{{ $bloodgroup->id }}">{{ $bloodgroup->bloodgroup }}</option>
+                                                                                                                <option value="{{ $bloodgroup->id }}" @if($patient->bloodgroup == $bloodgroup->id) selected @endif>{{ $bloodgroup->bloodgroup }}</option>
                                                                                                             @endforeach
-                                                                                                        </select>
+                                                                                                        </select>                                                                                                        
                                                                                                         <label for="bloodgroup">Blood Group</label>
                                                                                                     </div>
                                                                                                     <!-- Genotype -->
                                                                                                     <div class="form-floating mb-3">
-                                                                                                        <select class="form-control form-select" name="genotype" id="genotype" value="{{ $patient->genotype}}">
-                                                                                                            <option value="" selected>Select Genotype</option>
+                                                                                                        <select class="form-control form-select" name="genotype" id="genotype">
+                                                                                                            <option value="" @if($patient->genotype == '') selected @endif>Select Genotype</option>
                                                                                                             @foreach($genotypes as $genotype)
-                                                                                                                <option value="{{ $genotype->id }}">{{ $genotype->genotype }}</option>
+                                                                                                                <option value="{{ $genotype->id }}" @if($patient->genotype == $genotype->id) selected @endif>{{ $genotype->genotype }}</option>
                                                                                                             @endforeach
-                                                                                                        </select>
+                                                                                                        </select>                                                                                                        
                                                                                                         <label for="genotype">Genotype</label>
                                                                                                     </div>
                                                                                                     <!-- Allergies -->
@@ -161,7 +162,7 @@
                                                                                                         <label for="allergies">Allergies (If any)</label>
                                                                                                     </div>
                                                                                                     <!-- Code -->
-                                                                                                    <input type="hidden" name="code" value="PAT{{ $newPatient->id }}">
+                                                                                                    {{-- <input type="hidden" name="code" value="PAT{{ $newPatient->id }}"> --}}
                                                                                                 </div>
                                                                                             </div>
                                                                                             <div class="modal-footer">
@@ -195,11 +196,11 @@
                                                             <form action="{{ url('/admin/deletePatient') }}" method="POST">
                                                                 @csrf
                                                                 <div class="modal-body">
-                                                                    <p class="text-center">Are you sure you want to delete "<br/> {{ $patient->lastname.' '.$patient->othernames }}"?</p>
+                                                                    <p class="text-center">Are you sure you want to delete "{{ $patient->lastname.' '.$patient->othernames }}"?</p>
                                                                     <input type="hidden" name="patient_id" value="{{ $patient->id }}">
                                                                 </div>
                                                                 <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
                                                                     <button type="submit" class="btn btn-danger">Delete</button>
                                                                 </div>
                                                             </form>

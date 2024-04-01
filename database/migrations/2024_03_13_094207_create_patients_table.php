@@ -26,6 +26,7 @@ class CreatePatientsTable extends Migration
             $table->string('allergies')->nullable();
             $table->string('religion')->nullable();
             $table->string('address')->nullable();
+            $table->string('slug')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
