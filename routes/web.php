@@ -44,7 +44,7 @@ Route::group(['prefix' => 'admin'], function () {
   Route::get('/patient', [App\Http\Controllers\Admin\AdminController::class, 'patient'])->name('patient')->middleware(['auth:admin']);  
   Route::get('/allPatient', [App\Http\Controllers\Admin\AdminController::class, 'allPatient'])->name('allPatient')->middleware(['auth:admin']);  
   Route::post('/addPatient', [App\Http\Controllers\Admin\AdminController::class, 'addPatient'])->name('addPatient')->middleware(['auth:admin']);
-  Route::post('/viewPatient', [App\Http\Controllers\Admin\AdminController::class, 'viewPatient'])->name('viewPatient')->middleware(['auth:admin']);
+  Route::get('/viewPatient/{slug}', [App\Http\Controllers\Admin\AdminController::class, 'viewPatient'])->name('viewPatient')->middleware(['auth:admin']);
   Route::post('/editPatient', [App\Http\Controllers\Admin\AdminController::class, 'editPatient'])->name('editPatient')->middleware(['auth:admin']);
   Route::post('/deletePatient', [App\Http\Controllers\Admin\AdminController::class, 'deletePatient'])->name('deletePatient')->name('deletePatient')->middleware(['auth:admin']);
 

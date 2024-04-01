@@ -23,6 +23,7 @@ class Patient extends Model
         'allergies',
         'religion',
         'address',
+        'slug',
     ];
 
     public function prescriptions() {
