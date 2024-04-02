@@ -26,7 +26,7 @@ class CreateStaffTable extends Migration
             $table->string('religion')->nullable();
             $table->string('marital_status')->nullable();
             $table->string('gender')->nullable();
-            $table->string('bio')->nullable();
+            $table->text('bio')->nullable();
             $table->string('slug')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
