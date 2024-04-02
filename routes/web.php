@@ -110,7 +110,8 @@ Route::group(['prefix' => 'staff'], function () {
   Route::post('/editPatient', [App\Http\Controllers\Staff\StaffController::class, 'editPatient'])->name('editPatient')->middleware(['auth:staff']);
 
   Route::get('/profile', [App\Http\Controllers\Staff\StaffController::class, 'profile'])->name('profile')->middleware(['auth:staff']);  
-  Route::post('/updatePassword', [App\Http\Controllers\Staff\StaffController::class, 'updatePassword'])->name('updatePassword')->middleware(['auth:staff']);  
+  Route::post('/updatePassword', [App\Http\Controllers\Staff\StaffController::class, 'updatePassword'])->name('updatePassword')->middleware(['auth:staff']); 
+  Route::post('/updateStaff', [App\Http\Controllers\Staff\StaffController::class, 'updateStaff'])->name('updateStaff')->middleware(['auth:staff']);  
 });
 
 
