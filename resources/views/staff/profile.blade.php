@@ -6,6 +6,15 @@
 @endphp
 
 @section('content')
+    <script src="https://cdn.tiny.cloud/1/ib771jqvt5joab026vosdy4bkhoad3hty1tycnv696zoka2w/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+    <!-- Place the following <script> and <textarea> tags your HTML's <body> -->
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount linkchecker',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+        });
+    </script>
 
 <!-- start section content -->
 <div class="content-body">
@@ -93,7 +102,7 @@
                                         </div>
                                         <div class="card-body">
                                             <div class="basic-form">
-                                                <form method="POST" action="{{ url('/admin/editStaff') }}" enctype="multipart/form-data">
+                                                <form method="POST" action="{{ url('/staff/updateStaff') }}" enctype="multipart/form-data">
                                                     @csrf
                                                     <input type="hidden" name="staff_id" value="{{ $staff->id }}">
                                                     <div class="row">
@@ -101,24 +110,18 @@
                                                             <div class="form-group row widget-3">
                                                                 <div class="col-lg-12">
                                                                     <div class="form-input">
-                                                                        <label class="labeltest" for="file-ip-1">
+                                                                        <label class="labeltest" for="image">
                                                                             <span>Drop image here or click to upload.</span>
                                                                         </label>
-                                                                        <input type="file" id="file-ip-1" name="image" accept="image/*"  onchange="showPreview(event);">
+                                                                        <input type="file" id="image" name="image" accept="image/*"
+                                                                            onchange="showPreview(event);">
                                                                         <div class="preview">
-                                                                            @if(!$staff->image)
-                                                                                <img id="file-ip-1-preview" src="{{ asset('uploads/staff/jolayemi-musa-ibrahim.jpg'.$staff->image) }}" alt="img">
-                                                                            @else
-                                                                                <img id="file-ip-1-preview" src="#" alt="img">
-                                                                            @endif
+                                                                            <img id="file-ip-1-preview" src="#" alt="img">
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        {{-- <div class="row">
-                                                            <img id="file-ip-1-preview" src="{{ asset($staff->image) }}" alt="img" width="90" height="50%">
-                                                        </div> --}}
                                                         <div class="col-xl-4">
                                                             <div class="form-floating">
                                                                 <input type="text" class="form-control" name="lastname" value="{{ $staff->lastname}}">
