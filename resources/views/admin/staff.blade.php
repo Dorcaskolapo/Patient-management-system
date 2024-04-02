@@ -1,4 +1,4 @@
-@extends('admin.layout.auth')
+@extends('admin.layout.dashboard')
 
 @section('content')
     <script src="https://cdn.tiny.cloud/1/ib771jqvt5joab026vosdy4bkhoad3hty1tycnv696zoka2w/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>

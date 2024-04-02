@@ -1,4 +1,4 @@
-@extends('staff.layout.auth')
+@extends('staff.layout.dashboard')
 @php
     $staff = Auth::guard('staff')->user();
     $role = $staff->staffRole->role;
