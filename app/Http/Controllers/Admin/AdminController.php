@@ -35,6 +35,13 @@ class AdminController extends Controller
         return view('admin.dashboard');
     }
 
+    //PROFILE LOGIC
+    public function profile(){
+
+        return view('admin.profile',[
+            
+        ]);
+    }
 
     public function prescription(){
 
@@ -128,12 +135,12 @@ class AdminController extends Controller
             return redirect()->back();
         }
 
-        $slug = $staff->slug;
-        if(!empty($request->lastname) && $request->lastname != $staff->lastname){
-            $staff->lastname = $request->lastname;
-            $staff->othernames = $request->othernames;
+        $slug = $patient->slug;
+        if(!empty($request->lastname) && $request->lastname != $patient->lastname){
+            $patient->lastname = $request->lastname;
+            $patient->othernames = $request->othernames;
             $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->lastname.'-', $request->othernames)));
-            $staff->slug = $slug;
+            $patient->slug = $slug;
         }
 
         if(!empty($request->patientId) && $request->patientId != $patient->patientId){
@@ -177,7 +184,7 @@ class AdminController extends Controller
         }
 
         if ($patient->save()) {
-            alert()->success('Changes Saved', 'Changes saved successfully')->persistent('Close');
+            alert()->success('Changes Saved', 'Patient details updated successfully')->persistent('Close');
             return redirect()->back();
         }
     }
@@ -379,7 +386,7 @@ class AdminController extends Controller
         }
 
         if ($staff->save()) {
-            alert()->success('Changes Saved', 'Changes saved successfully')->persistent('Close');
+            alert()->success('Changes Saved', 'Staff details updated successfully')->persistent('Close');
             return redirect()->back();
         }
     }

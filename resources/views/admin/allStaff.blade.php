@@ -1,4 +1,4 @@
-@extends('admin.dashboard')
+@extends('admin.layout.auth')
 
 @section('content')
 
@@ -130,8 +130,8 @@
                                                                                                     <div class="form-floating">
                                                                                                         <select class="form-control form-select" name="gender" value="{{ $staff->gender}}">
                                                                                                             <option>Choose A Gender</option>
-                                                                                                            <option value="Female">Female</option>
-                                                                                                            <option value="Male">Male</option>
+                                                                                                            <option value="Female" @if($staff->gender == 'Female') selected @endif>Female</option>
+                                                                                                            <option value="Male" @if($staff->gender == 'Male') selected @endif>Male</option>   
                                                                                                         </select>
                                                                                                         <label for="gender">Gender</label>
                                                                                                     </div>
@@ -143,23 +143,23 @@
                                                                                                     <br>
                                                                                                     <div class="form-floating">
                                                                                                         <select class="form-control form-select" name="marital_status" value="{{ $staff->marital_status}}">
-                                                                                                            <option>Marital Status</option>
-                                                                                                            <option>Single</option>
-                                                                                                            <option>Married</option>
-                                                                                                            <option>Divorced</option>
-                                                                                                            <option>Widow</option>
-                                                                                                            <option>Widower</option>
+                                                                                                            <option>Select Marital Status</option>
+                                                                                                            <option value="Single" @if($staff->marital_status == 'Single') selected @endif>Single</option>
+                                                                                                            <option value="Married" @if($staff->marital_status == 'Married') selected @endif>Married</option>
+                                                                                                            <option value="Divorced" @if($staff->marital_status == 'Divorced') selected @endif>Divorced</option>
+                                                                                                            <option value="Widow" @if($staff->marital_status == 'Widow') selected @endif>Widow</option>
+                                                                                                            <option value="Widower" @if($staff->marital_status == 'Widower') selected @endif>Widower</option>
                                                                                                         </select>
                                                                                                         <label for="marital_status">Marital Status</label>
                                                                                                     </div>
                                                                                                     <br>
                                                                                                     <div class="form-floating">
-                                                                                                        <select class="form-control form-select" name="role" value="{{ $staff->role}}">
-                                                                                                            <option value="" selected>Select Role</option>
+                                                                                                        <select class="form-control form-select" name="role">
+                                                                                                            <option value="" @if($staff->role == '') selected @endif>Select Role</option>
                                                                                                             @foreach($roles as $role)
-                                                                                                                <option value="{{ $role->id }}">{{ $role->role }}</option>
+                                                                                                                <option value="{{ $role->id }}" @if($staff->role == $role->id) selected @endif>{{ $role->role }}</option>
                                                                                                             @endforeach
-                                                                                                        </select>
+                                                                                                        </select>                                                                                                        
                                                                                                         <label for="role">Role</label>
                                                                                                     </div>
                                                                                                 </div>
@@ -188,10 +188,10 @@
                                                                                                 </div>
                                                                                                 <div class="col-xl-8">
                                                                                                     <div class="form-floating">
-                                                                                                        <textarea class="form-control" name="bio" rows="4" value="{{ $staff->bio}}" ></textarea>
+                                                                                                        <textarea class="form-control" name="bio">{{ $staff->bio }}</textarea>
                                                                                                         <label for="bio">Bio</label>
                                                                                                     </div>
-                                                                                                </div>
+                                                                                                </div>                                                                                                
                                                                                             </div>
                                                                                             <div class="modal-footer">
                                                                                                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
@@ -211,28 +211,29 @@
                                                 <!--End Modal -->
 
 
-                                                <!--Delete Modal -->
+                                                <!-- Modal for Delete Test -->
                                                 <div class="modal fade" id="modal-delete" tabindex="-1" aria-labelledby="modal-title-delete-row" aria-hidden="true">
-                                                    <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-dialog modal-md modal-dialog-centered" role="document">
                                                         <div class="modal-content">
-                                                            <div class="modal-body text-center p-5">
-                                                                <div class="text-end">
-                                                                    <button type="button" class="btn-close text-end" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                </div>
-                                                                <div class="mt-2">
-                                                                    <h4 class="mb-3 mt-4">Are you sure you want to delete <br/> {{ $staff->lastname.' '.$staff->othernames }}?</h4>
-                                                                    <form action="{{ url('/admin/deleteStaff') }}" method="POST">
-                                                                        @csrf
-                                                                        <input name="staff_id" type="hidden" value="{{$staff->id}}">
-                                                                        <hr>
-                                                                        <button type="submit" id="submit-button" class="btn btn-danger w-100">Yes, Delete</button>
-                                                                    </form>
-                                                                </div>
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="deletePatient{{ $staff->id }}Label">Delete Staff</h5>
+                                                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
                                                             </div>
-                                                            <div class="modal-footer bg-light p-3 justify-content-center">
-                                                            </div>
-                                                        </div><!-- /.modal-content -->
-                                                    </div><!-- /.modal-dialog -->
+                                                            <form action="{{ url('/admin/deleteStaff') }}" method="POST">
+                                                                @csrf
+                                                                <div class="modal-body">
+                                                                    <p class="text-center">Are you sure you want to delete "{{ $staff->lastname.' '.$staff->othernames }}"?</p>
+                                                                    <input type="hidden" name="staff_id" value="{{ $staff->id }}">
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
+                                                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             @endforeach
                                         </tbody>

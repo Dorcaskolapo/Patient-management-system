@@ -1,4 +1,4 @@
-@extends('admin.dashboard')
+@extends('admin.layout.auth')
 
 @section('content')
 <!-- start page title -->
