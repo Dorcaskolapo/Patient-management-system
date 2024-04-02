@@ -150,7 +150,7 @@
                                 </a>
                                 <div class="account-dropdown-form dropdown-container">
                                     <div class="form-content">
-                                        <a href="doctor-settings.html">
+                                        <a href="{{ url('/admin/profile') }}">
                                             <i class="far fa-user"></i>
                                             <span class="ml-2">Profile</span>
                                         </a>

@@ -4,7 +4,6 @@
 
 @php
     $staff = Auth::guard('staff')->user();
-    $name = $staff->lastname .' ' . $staff->othernames;
     $role = $staff->staffRole->role;
     
 @endphp
@@ -68,7 +67,7 @@
                             <li><a href="{{ url('/staff/allPrescription') }}">All Prescriptions</a></li>
                         </ul>
                     </li> --}}
-                    <li class="has-submenu">
+                    {{-- <li class="has-submenu">
                         <a href="javascript:void()" class="has-arrow mm-collapsed">
                             <i class="fas fa-tint"></i>
                             <span class="nav-label">Bloodgroup & Genotype</span>
@@ -77,19 +76,21 @@
                             <li><a href="{{ url('/staff/bloodgroup') }}">Add Bloodgroup</a></li>
                             <li><a href="{{ url('/staff/genotype') }}">Add Genotype</a></li>
                         </ul>
-                    </li>
-                    <li class="has-submenu">
+                    </li> --}}
+                    {{-- <li class="has-submenu">
+                        @if($role == 'Pharmacist')
                         <a href="{{ url('/staff/drug') }}">
                             <i class="fas fa-pills"></i>
                             <span class="nav-label">Add Drug</span>
                         </a>
-                    </li>
-                    <li class="has-submenu">
+                        @endif
+                    </li> --}}
+                    {{-- <li class="has-submenu">
                         <a href="{{ url('/staff/test') }}">
                             <i class="fas fa-heartbeat"></i>
                             <span class="nav-label">Add Test</span>
                         </a>
-                    </li>
+                    </li> --}}
                     {{-- <li class="has-submenu">
                         <a href="javascript:void()" class="has-arrow mm-collapsed">
                             <i class="fas fa-file-invoice"></i>
@@ -145,7 +146,7 @@
                                 </a>
                                 <div class="account-dropdown-form dropdown-container">
                                     <div class="form-content">
-                                        <a href="doctor-settings.html">
+                                        <a href="{{ url('/staff/profile') }}">
                                             <i class="far fa-user"></i>
                                             <span class="ml-2">Profile</span>
                                         </a>

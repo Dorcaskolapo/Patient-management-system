@@ -83,6 +83,8 @@ Route::group(['prefix' => 'admin'], function () {
   Route::post('/addBloodgroup', [App\Http\Controllers\Admin\AdminController::class, 'addBloodgroup'])->name('addBloodgroup')->middleware(['auth:admin']);
   Route::post('/editBloodgroup', [App\Http\Controllers\Admin\AdminController::class, 'editBloodgroup'])->name('editBloodgroup')->middleware(['auth:admin']);
   Route::post('/deleteBloodgroup', [App\Http\Controllers\Admin\AdminController::class, 'deleteBloodgroup'])->name('deleteBloodgroup')->name('deleteBloodgroup')->middleware(['auth:admin']);
+
+  Route::get('/profile', [App\Http\Controllers\Admin\AdminController::class, 'profile'])->name('profile')->middleware(['auth:admin']);  
 });
 
 Route::group(['prefix' => 'staff'], function () {
@@ -100,6 +102,15 @@ Route::group(['prefix' => 'staff'], function () {
   Route::get('/password/reset/{token}', [App\Http\Controllers\Staff\Auth\ResetPasswordController::class, 'showResetForm']);
 
   Route::get('/home', [App\Http\Controllers\Staff\StaffController::class, 'index'])->name('home')->middleware(['auth:staff']);
+
+  Route::get('/patient', [App\Http\Controllers\Staff\StaffController::class, 'patient'])->name('patient')->middleware(['auth:staff']);  
+  Route::get('/allPatient', [App\Http\Controllers\Staff\StaffController::class, 'allPatient'])->name('allPatient')->middleware(['auth:staff']);  
+  Route::post('/addPatient', [App\Http\Controllers\Staff\StaffController::class, 'addPatient'])->name('addPatient')->middleware(['auth:staff']);
+  Route::get('/viewPatient/{slug}', [App\Http\Controllers\Staff\StaffController::class, 'viewPatient'])->name('viewPatient')->middleware(['auth:staff']);
+  Route::post('/editPatient', [App\Http\Controllers\Staff\StaffController::class, 'editPatient'])->name('editPatient')->middleware(['auth:staff']);
+
+  Route::get('/profile', [App\Http\Controllers\Staff\StaffController::class, 'profile'])->name('profile')->middleware(['auth:staff']);  
+  Route::post('/updatePassword', [App\Http\Controllers\Staff\StaffController::class, 'updatePassword'])->name('updatePassword')->middleware(['auth:staff']);  
 });
 
 

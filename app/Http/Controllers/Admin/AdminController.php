@@ -35,6 +35,13 @@ class AdminController extends Controller
         return view('admin.dashboard');
     }
 
+    //PROFILE LOGIC
+    public function profile(){
+
+        return view('admin.profile',[
+            
+        ]);
+    }
 
     public function prescription(){
 
