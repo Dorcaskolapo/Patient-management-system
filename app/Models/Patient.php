@@ -34,6 +34,9 @@ class Patient extends Model
         return $this->hasMany(Test::class);
     }
      
+    public function bloodgroup(){
+        return $this->belongsTo(Bloodgroup::class);
+    }
 }
 
 
