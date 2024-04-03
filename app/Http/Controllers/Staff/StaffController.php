@@ -188,12 +188,6 @@ class StaffController extends Controller
         ]);
     }
 
-    public function viewPatient($slug){
-        $patient = Patient::where('slug', $slug)->firstOrFail();
-        return view('staff.viewPatient',[
-            'patient' => $patient,
-        ]);
-    }
 
     //PROFILE LOGIC
     public function profile(){
