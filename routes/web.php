@@ -106,7 +106,7 @@ Route::group(['prefix' => 'staff'], function () {
   Route::get('/patient', [App\Http\Controllers\Staff\StaffController::class, 'patient'])->name('patient')->middleware(['auth:staff']);  
   Route::get('/allPatient', [App\Http\Controllers\Staff\StaffController::class, 'allPatient'])->name('allPatient')->middleware(['auth:staff']);  
   Route::post('/addPatient', [App\Http\Controllers\Staff\StaffController::class, 'addPatient'])->name('addPatient')->middleware(['auth:staff']);
-  Route::get('/viewPatient/{slug}', [App\Http\Controllers\Staff\StaffController::class, 'viewPatient'])->name('viewPatient')->middleware(['auth:staff']);
+  Route::get('/viewPatient/{slug}', [App\Http\Controllers\Staff\PatientController::class, 'viewPatient'])->name('viewPatient')->middleware(['auth:staff']);
   Route::post('/editPatient', [App\Http\Controllers\Staff\StaffController::class, 'editPatient'])->name('editPatient')->middleware(['auth:staff']);
 
   Route::get('/profile', [App\Http\Controllers\Staff\StaffController::class, 'profile'])->name('profile')->middleware(['auth:staff']);  

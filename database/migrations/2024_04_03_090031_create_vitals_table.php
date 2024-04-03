@@ -15,6 +15,14 @@ class CreateVitalsTable extends Migration
     {
         Schema::create('vitals', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('patient_id');
+            $table->float('body_temperature')->nullable();
+            $table->integer('pulse_rate')->nullable();
+            $table->integer('respiration_rate')->nullable();
+            $table->integer('blood_pressure_systolic')->nullable();
+            $table->integer('blood_pressure_diastolic')->nullable();
+            $table->text('notes')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
