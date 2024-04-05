@@ -119,7 +119,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="{{ url('staff/updatePassword') }}">
+                    <form method="POST" action="{{ url('staff/addVitals') }}">
                         @csrf
                         <input type="hidden" name="patient_id" id="patient_id">
                         <div class="mb-3">
