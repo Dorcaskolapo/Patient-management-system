@@ -57,6 +57,23 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- Display Vitals Section -->
+                        <div class="row mt-3">
+                            <div class="col-md-12">
+                                <h5>Vital Signs</h5>
+                                <ul>
+                                    @foreach($vitals as $vital)
+                                        <li><strong>Date:</strong> {{ $vital->created_at }}</li>
+                                        <li><strong>Body Temperature:</strong> {{ $vital->body_temperature }} °C</li>
+                                        <li><strong>Pulse Rate:</strong> {{ $vital->pulse_rate }} BPM</li>
+                                        <li><strong>Respiration Rate:</strong> {{ $vital->respiration_rate }} BPM</li>
+                                        <li><strong>Blood Pressure (Systolic/Diastolic):</strong> {{ $vital->blood_pressure_systolic }} / {{ $vital->blood_pressure_diastolic }} mmHg</li>
+                                        <li><strong>Notes:</strong> {{ $vital->notes }}</li>
+                                        <hr>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

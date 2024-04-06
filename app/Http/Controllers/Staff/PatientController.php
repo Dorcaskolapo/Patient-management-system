@@ -32,8 +32,47 @@ class PatientController extends Controller
     //STAFF TO PATIENT VIEW LOGIC
     public function viewPatient($slug){
         $patient = Patient::where('slug', $slug)->firstOrFail();
+
+        $vitals = $patient->vitals;
         return view('staff.viewPatient',[
             'patient' => $patient,
+            'vitals' => $vitals,
         ]);
+    }
+
+    //ADD VITALS 
+    public function addVitals(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'body_temperature' => 'required',
+            'pulse_rate' => 'required',
+            'respiration_rate' => 'required',
+            'blood_pressure_systolic' => 'required',
+            'blood_pressure_diastolic' => 'required',
+            'notes' => 'required',
+        ]);
+        
+
+        if($validator->fails()) {
+            alert()->error('Error', $validator->messages()->all()[0])->persistent('Close');
+            return redirect()->back();
+        }
+
+        $newVital = ([
+            'body_temperature' => $request->body_temperature,
+            'pulse_rate' => $request->pulse_rate,
+            'respiration_rate' => $request->respiration_rate,
+            'blood_pressure_systolic' => $request->blood_pressure_systolic,
+            'blood_pressure_diastolic' => $request->blood_pressure_diastolic,
+            'notes' => $request->notes,
+        ]);
+
+        if(Patient::create($newVital)){
+            alert()->success('Changes Saved', 'Vitals added successfully')->persistent('Close');
+            return redirect()->back();
+        }
+
+        alert()->error('Oops!', 'Something went wrong')->persistent('Close');
+        return redirect()->back();
     }
 }
