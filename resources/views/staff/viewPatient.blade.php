@@ -138,7 +138,8 @@
                 <div class="modal-body">
                     <form method="POST" action="{{ url('staff/addVitals') }}">
                         @csrf
-                        <input type="hidden" name="patient_id" id="patient_id">
+                        {{-- <input type="hidden" name="patient_id" id="patient_id"> --}}
+                        <input type="hidden" name="patient_id" value="{{ $patient->id }}">
                         <div class="mb-3">
                             <label for="body_temperature" class="form-label">Body Temperature (°C)</label>
                             <input type="number" class="form-control" id="body_temperature" name="body_temperature" placeholder="Enter body temperature">
