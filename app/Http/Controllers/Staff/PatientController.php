@@ -24,6 +24,8 @@ use App\Models\Staff;
 use App\Models\Test;
 use App\Models\Genotype;
 use App\Models\Bloodgroup;
+use App\Models\Vital;
+use App\Models\Session;
 
 class PatientController extends Controller
 {
@@ -59,6 +61,7 @@ class PatientController extends Controller
         }
 
         $newVital = ([
+            'patient_id' => $request->patient_id,
             'body_temperature' => $request->body_temperature,
             'pulse_rate' => $request->pulse_rate,
             'respiration_rate' => $request->respiration_rate,
@@ -67,7 +70,7 @@ class PatientController extends Controller
             'notes' => $request->notes,
         ]);
 
-        if(Patient::create($newVital)){
+        if(Vital::create($newVital)){
             alert()->success('Changes Saved', 'Vitals added successfully')->persistent('Close');
             return redirect()->back();
         }
