@@ -69,8 +69,6 @@
                                         <li><strong>Respiration Rate:</strong> {{ $vital->respiration_rate }} BPM</li>
                                         <li><strong>Blood Pressure (Systolic/Diastolic):</strong> {{ $vital->blood_pressure_systolic }} / {{ $vital->blood_pressure_diastolic }} mmHg</li>
                                         <li><strong>Notes:</strong> {{ $vital->notes }}</li>
-                                        <li><strong>Notes:</strong> {{ $vital->notes }}</li>
-                                        <li><strong>Notes:</strong> {{ $vital->notes }}</li>
                                         <hr>
                                     @endforeach
                                 </ul>
