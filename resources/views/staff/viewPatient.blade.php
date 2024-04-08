@@ -69,6 +69,8 @@
                                         <li><strong>Respiration Rate:</strong> {{ $vital->respiration_rate }} BPM</li>
                                         <li><strong>Blood Pressure (Systolic/Diastolic):</strong> {{ $vital->blood_pressure_systolic }} / {{ $vital->blood_pressure_diastolic }} mmHg</li>
                                         <li><strong>Notes:</strong> {{ $vital->notes }}</li>
+                                        <li><strong>Notes:</strong> {{ $vital->notes }}</li>
+                                        <li><strong>Notes:</strong> {{ $vital->notes }}</li>
                                         <hr>
                                     @endforeach
                                 </ul>
@@ -138,7 +140,8 @@
                 <div class="modal-body">
                     <form method="POST" action="{{ url('staff/addVitals') }}">
                         @csrf
-                        <input type="hidden" name="patient_id" id="patient_id">
+                        {{-- <input type="hidden" name="patient_id" id="patient_id"> --}}
+                        <input type="hidden" name="patient_id" value="{{ $patient->id }}">
                         <div class="mb-3">
                             <label for="body_temperature" class="form-label">Body Temperature (°C)</label>
                             <input type="number" class="form-control" id="body_temperature" name="body_temperature" placeholder="Enter body temperature">
