@@ -174,6 +174,65 @@
             </div>
         </div>
     </div>
+    <!-- Prescription Modal -->
+    <div class="modal fade" id="prescriptionModal" tabindex="-1" role="dialog" aria-labelledby="prescriptionModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="prescriptionModalLabel">Prescription</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="{{ url('staff/addPrescription') }}">
+                        @csrf
+                        <input type="hidden" name="patient_id" value="{{ $patient->id }}">
+                        <!-- Prescription fields go here -->
+                        <button type="button" class="btn btn-primary float-start" id="backToVitals">Back</button>
+                        <button type="submit" class="btn btn-primary float-end">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Test Modal -->
+    <div class="modal fade" id="testModal" tabindex="-1" role="dialog" aria-labelledby="testModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="testModalLabel">Test</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="{{ url('staff/addTest') }}">
+                        @csrf
+                        <input type="hidden" name="patient_id" value="{{ $patient->id }}">
+                        <!-- Test fields go here -->
+                        <button type="button" class="btn btn-primary float-start" id="backToVitals">Back</button>
+                        <button type="submit" class="btn btn-primary float-end">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Handle Next button click to navigate to Prescription modal
+            document.getElementById('nextPrescription').addEventListener('click', function () {
+                $('#vitalSignsModal').modal('hide');
+                $('#prescriptionModal').modal('show');
+            });
+    
+            // Handle Back button click to go back to Vital Signs modal
+            document.getElementById('backToVitals').addEventListener('click', function () {
+                $('#prescriptionModal').modal('hide');
+                $('#vitalSignsModal').modal('show');
+            });
+        });
+    </script>
+
 </div>
+
 
 @endsection
