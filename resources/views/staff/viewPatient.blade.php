@@ -45,7 +45,7 @@
                 </div>
 
                 <!-- Start Session and End Session Buttons -->
-                <div class="col-lg-3 overflow-hidden">
+                <div class="col-lg-3 overflow-hidden float-end">
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
@@ -57,9 +57,16 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Display Vitals Section -->
-                        <div class="row mt-3">
-                            <div class="col-md-12">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 float-end">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row-col-md-6">
+                            <!-- Display Vitals Section -->
+  
+                            <div class="col-lg-12">
                                 <h5>Vital Signs</h5>
                                 <ul>
                                     @foreach($vitals as $vital)
@@ -76,10 +83,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
-
-            
-
+            </div>   
             <!-- Tab Section -->
             <div class="row">
                 <div class="col-lg-9">
@@ -127,7 +131,8 @@
             </div>
         </div>
     </div>
-    <!-- Start Session Modal -->
+
+    <!-- Vital Modal -->
     <div class="modal fade" id="vitalSignsModal" tabindex="-1" role="dialog" aria-labelledby="vitalSignsModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -136,9 +141,8 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="{{ url('staff/addVitals') }}">
+                    <form method="POST" action="{{ url('staff/addVitals') }}" id="vitalSignsForm">
                         @csrf
-                        {{-- <input type="hidden" name="patient_id" id="patient_id"> --}}
                         <input type="hidden" name="patient_id" value="{{ $patient->id }}">
                         <div class="mb-3">
                             <label for="body_temperature" class="form-label">Body Temperature (°C)</label>
@@ -168,27 +172,8 @@
                             <label for="notes" class="form-label">Notes</label>
                             <textarea class="form-control" id="notes" name="notes" rows="3" placeholder="Enter notes"></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary float-end">Submit</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Prescription Modal -->
-    <div class="modal fade" id="prescriptionModal" tabindex="-1" role="dialog" aria-labelledby="prescriptionModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="prescriptionModalLabel">Prescription</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form method="POST" action="{{ url('staff/addPrescription') }}">
-                        @csrf
-                        <input type="hidden" name="patient_id" value="{{ $patient->id }}">
-                        <!-- Prescription fields go here -->
-                        <button type="button" class="btn btn-primary float-start" id="backToVitals">Back</button>
-                        <button type="submit" class="btn btn-primary float-end">Submit</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="vitalNextBtn">Next</button>
                     </form>
                 </div>
             </div>
@@ -200,39 +185,106 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="testModalLabel">Test</h5>
+                    <h5 class="modal-title" id="testModalLabel">Tests</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="{{ url('staff/addTest') }}">
+                    <form method="POST" action="{{ url('staff/addTests') }}" id="testForm">
                         @csrf
-                        <input type="hidden" name="patient_id" value="{{ $patient->id }}">
-                        <!-- Test fields go here -->
-                        <button type="button" class="btn btn-primary float-start" id="backToVitals">Back</button>
-                        <button type="submit" class="btn btn-primary float-end">Submit</button>
+                        <!-- Tests Form Fields -->
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="testPrevBtn">Previous</button>
+                        <button type="button" class="btn btn-primary" id="testNextBtn">Next</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Handle Next button click to navigate to Prescription modal
-            document.getElementById('nextPrescription').addEventListener('click', function () {
-                $('#vitalSignsModal').modal('hide');
-                $('#prescriptionModal').modal('show');
-            });
-    
-            // Handle Back button click to go back to Vital Signs modal
-            document.getElementById('backToVitals').addEventListener('click', function () {
-                $('#prescriptionModal').modal('hide');
-                $('#vitalSignsModal').modal('show');
-            });
-        });
-    </script>
+    <!-- Prescription Modal -->
+    <div class="modal fade" id="prescriptionModal" tabindex="-1" role="dialog" aria-labelledby="prescriptionModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="prescriptionModalLabel">Prescription</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="{{ url('staff/addPrescription') }}">
+                        @csrf
+                        <!-- Prescription Form Fields -->
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="prescriptionPrevBtn">Previous</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const vitalNextBtn = document.getElementById('vitalNextBtn');
+        const testPrevBtn = document.getElementById('testPrevBtn');
+        const testNextBtn = document.getElementById('testNextBtn');
+        const prescriptionPrevBtn = document.getElementById('prescriptionPrevBtn');
+
+        vitalNextBtn.addEventListener('click', function() {
+            // Serialize form data
+            const formData = $('#vitalSignsForm').serialize();
+
+            // Send AJAX request
+            $.ajax({
+                url: "{{ url('staff/addVitals') }}",
+                type: "POST",
+                data: formData,
+                success: function(response) {
+                    // On success, hide current modal and show next modal
+                    $('#vitalSignsModal').modal('hide');
+                    $('#testModal').modal('show');
+                },
+                error: function(xhr, status, error) {
+                    // Handle error
+                    console.error(error);
+                }
+            });
+        });
+
+        testPrevBtn.addEventListener('click', function() {
+            $('#testModal').modal('hide');
+            $('#vitalSignsModal').modal('show');
+        });
+
+        testNextBtn.addEventListener('click', function() {
+            // Serialize form data
+            const formData = $('#testForm').serialize();
+
+            // Send AJAX request
+            $.ajax({
+                url: "{{ url('staff/addTests') }}",
+                type: "POST",
+                data: formData,
+                success: function(response) {
+                    // On success, hide current modal and show next modal
+                    $('#testModal').modal('hide');
+                    $('#prescriptionModal').modal('show');
+                },
+                error: function(xhr, status, error) {
+                    // Handle error
+                    console.error(error);
+                }
+            });
+        });
+
+        prescriptionPrevBtn.addEventListener('click', function() {
+            $('#prescriptionModal').modal('hide');
+            $('#testModal').modal('show');
+        });
+    });
+</script>
+
 
 
 @endsection

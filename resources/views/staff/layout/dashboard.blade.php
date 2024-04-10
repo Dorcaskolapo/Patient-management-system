@@ -18,6 +18,7 @@
     <!-- Base Styling  -->
     <link rel="stylesheet" href="{{asset('assets/main/css/fonts.css')}}">
     <link rel="stylesheet" href="{{asset('assets/main/css/style.css')}}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-K6SxKZOUvW5fC2sjC0CgFpWA7uRs/zR4Zo4IGdr3A/I=" crossorigin="anonymous"></script>
 </head>
 
 <body>
