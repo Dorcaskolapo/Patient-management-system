@@ -104,7 +104,6 @@
                                         <ul>
                                             <li><strong>Lastname:</strong> {{ $patient->lastname }}</li>
                                             <li><strong>Othernames:</strong> {{ $patient->othernames }}</li>
-                                            <li><strong>Email:</strong> {{ $patient->email }}</li>
                                             <li><strong>Date of Birth:</strong> {{ $patient->dob }}</li>
                                             <li><strong>Marital Status:</strong> {{ $patient->marital_status }}</li>
                                             <li><strong>Gender:</strong> {{ $patient->gender }}</li>
