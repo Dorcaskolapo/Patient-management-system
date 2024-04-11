@@ -47,7 +47,7 @@
                                                         <a href="{{ url('/admin/viewPatient/'.$patient->slug) }}" class='mr-4 vue'>
                                                             <span class='fa fa-eye tbl-eye' aria-hidden='true'></span>
                                                         </a>
-                                                        <a data-bs-toggle='modal' data-bs-target='#modal-edit' class='mr-4'>
+                                                        <a data-bs-toggle='modal' data-bs-target='#modal-edit-{{ $patient->id }}' class='mr-4'>
                                                             <span class='fas fa-pencil-alt tbl-edit'></span>
                                                         </a>
                                                         <a class='mr-4 delet' data-bs-toggle='modal' data-bs-target="#modal-delete">
@@ -57,7 +57,7 @@
                                                 </tr>
 
                                                 <!--Edit Modal -->
-                                                <div class="modal fade" id="modal-edit" tabindex="-1" aria-labelledby="modal-title-edit-row" aria-hidden="true">
+                                                <div class="modal fade" id="modal-edit-{{ $patient->id }}" tabindex="-1" aria-labelledby="modal-title-edit-row" aria-hidden="true">
                                                     <div class="modal-dialog modal-lg">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
