@@ -18,6 +18,7 @@ class Vital extends Model
         'blood_pressure_systolic',
         'blood_pressure_diastolic',
         'notes',
+        'session_id',
     ];
 
     public function patient(){
