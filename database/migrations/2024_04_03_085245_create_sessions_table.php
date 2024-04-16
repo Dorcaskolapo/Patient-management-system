@@ -16,7 +16,8 @@ class CreateSessionsTable extends Migration
         Schema::create('sessions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('patient_id');
-            $table->string('symptoms');
+            $table->unsignedBigInteger('staff_id');
+            $table->text('symptoms');
             $table->string('status');
             $table->string('slug');
             $table->softDeletes();
