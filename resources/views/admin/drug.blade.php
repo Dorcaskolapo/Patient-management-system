@@ -44,7 +44,7 @@
                                         <tr>
                                             <td>{{ $drug->trade_name }}</td>
                                             <td>{{ $drug->generic_name }}</td>
-                                            <td>{{ $drug->note }}</td>
+                                            <td>{!! htmlspecialchars_decode( $drug->note) !!}</td>
                                             <td class="text-start">
                                                 <a data-bs-toggle="modal" data-bs-target="#editDrug{{ $drug->id }}" class="mr-4">
                                                     <span class="fas fa-pencil-alt tbl-edit"></span>
@@ -81,7 +81,7 @@
                                                                 <div class="col-lg-12">
                                                                     <div class="form-group">
                                                                         <label for="note">Note</label>
-                                                                        <textarea class="form-control" rows="3" name="note">{{ $drug->note }}</textarea>
+                                                                        <textarea class="form-control" rows="3" name="note"><td>{!! htmlspecialchars_decode($drug->note) !!}</td></textarea>
                                                                     </div>
                                                                 </div>
                                                             </div>
