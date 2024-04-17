@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Validator;
 
 use SweetAlert;
 use Alert;
+use Carbon\Carbon;
 
 use App\Models\Billing;
 use App\Models\Drug;
@@ -72,6 +73,28 @@ class PatientController extends Controller
 
         if(Vital::create($newVital)){
             alert()->success('Changes Saved', 'Vitals added successfully')->persistent('Close');
+            return redirect()->back();
+        }
+
+        alert()->error('Oops!', 'Something went wrong')->persistent('Close');
+        return redirect()->back();
+    }
+
+    public function createSession(Request $request){
+        $patient = Patient::where('id', $request->patient_id)->firstOrFail();
+        $uuid = $patient->lastname.' '.$patient->othernames.' '.Carbon::now();
+        $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $uuid)));
+
+        $mewSession = ([
+            'patient_id' => $request->patient_id,
+            'staff_id' => $request->staff_id,
+            'slug' => $slug,
+            'symptoms' => $request->symptoms,
+            'status' => 'Under Treatment',
+        ]);
+
+        if(Session::create($mewSession)){
+            alert()->success('Changes Saved', 'Session added successfully')->persistent('Close');
             return redirect()->back();
         }
 

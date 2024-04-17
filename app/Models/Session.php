@@ -12,6 +12,7 @@ class Session extends Model
 
     protected $fillable = [
         'patient_id',
+        'staff_id',
         'symptoms',
         'status',
         'slug',
