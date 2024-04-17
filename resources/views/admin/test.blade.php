@@ -42,7 +42,7 @@
                                             @foreach($tests as $test)
                                             <tr>
                                                 <td>{{ $test->test_name }}</td>
-                                                <td>{{ $test->description }}</td>
+                                                <td>{!! htmlspecialchars_decode($test->description) !!}</td>
                                                 <td class="text-start">
                                                     <a data-bs-toggle="modal" data-bs-target="#editTest{{ $test->id }}" class="mr-4">
                                                         <span class="fas fa-pencil-alt tbl-edit"></span>
