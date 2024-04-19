@@ -33,7 +33,7 @@
 
             <!-- Patient Info Section -->
             <div class="row">
-                <div class="col-lg-9">
+                <div class="col-lg-10">
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex justify-content-between doctor-info-details">
@@ -49,11 +49,11 @@
                 </div>
 
                 <!-- Start Session and End Session Buttons -->
-                <div class="col-lg-3 overflow-hidden float-end">
-                    <div class="card">
-                        <div class="card-body">
+                <div class="col-lg-2 float-end">
+                    <div class="card float-end">
+                        <div class="card-body d-flex align-items-center justify-content-center">
                             <div class="row">
-                                <div class="col-md-12 mb-2">
+                                <div class="col-md-12">
                                     <button class="btn btn-primary btn-block" data-bs-toggle="modal" data-bs-target="#addSessionModal">Add Session</button>
                                 </div>
                                 {{-- <div class="col-sm-6 mb-2">
@@ -63,6 +63,7 @@
                         </div>
                     </div>
                 </div>
+                
 
                 <!-- Modal for Add Session -->
                 <div class="modal fade" id="addSessionModal" tabindex="-1" aria-labelledby="addSessionModalLabel" aria-hidden="true">
