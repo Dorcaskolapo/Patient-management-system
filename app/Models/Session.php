@@ -21,4 +21,12 @@ class Session extends Model
     public function patient(){
         return $this->belongsTo(Patient::class, 'patient_id');
     }
+
+    public function staff(){
+        return $this->belongsTo(Staff::class, 'staff_id');
+    }
+
+    public function vitals(){
+        return $this->hasMany(Vital::class, 'session_id', 'id');
+    }
 }

@@ -34,7 +34,7 @@ class PatientController extends Controller
 
     //STAFF TO PATIENT VIEW LOGIC
     public function viewPatient($slug){
-        $patient = Patient::where('slug', $slug)->firstOrFail();
+        $patient = Patient::with('sessions')->where('slug', $slug)->firstOrFail();
 
         $vitals = $patient->vitals;
         return view('staff.viewPatient',[
@@ -63,6 +63,7 @@ class PatientController extends Controller
 
         $newVital = ([
             'patient_id' => $request->patient_id,
+            'session_id' => $request->session_id,
             'body_temperature' => $request->body_temperature,
             'pulse_rate' => $request->pulse_rate,
             'respiration_rate' => $request->respiration_rate,
@@ -80,12 +81,15 @@ class PatientController extends Controller
         return redirect()->back();
     }
 
+
+
+    //ADD SESSION 
     public function createSession(Request $request){
         $patient = Patient::where('id', $request->patient_id)->firstOrFail();
         $uuid = $patient->lastname.' '.$patient->othernames.' '.Carbon::now();
         $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $uuid)));
 
-        $mewSession = ([
+        $newSession = ([
             'patient_id' => $request->patient_id,
             'staff_id' => $request->staff_id,
             'slug' => $slug,
@@ -93,12 +97,36 @@ class PatientController extends Controller
             'status' => 'Under Treatment',
         ]);
 
-        if(Session::create($mewSession)){
+        if(Session::create($newSession)){
             alert()->success('Changes Saved', 'Session added successfully')->persistent('Close');
             return redirect()->back();
         }
 
         alert()->error('Oops!', 'Something went wrong')->persistent('Close');
         return redirect()->back();
+    }
+
+    // //ALL SESSION
+    // public function allSession() {
+    //     $allSessions = Session::orderBy('created_at', 'desc')->get();
+    
+    //     return view('viewPatient/{slug}', ['allSessions' => $allSessions]);
+    // }
+
+
+
+    // public function allSession() {
+    //     $allSessions = Session::latest()->get();
+    //     return view('staff.viewPatient', [
+    //         'allSessions' => $allSessions,
+    //     ]);
+    // }
+
+    public function fetchPatientSessions($patient_id) {
+        $sessions = Session::where('patient_id', $patient_id)->orderBy('created_at', 'desc')->get();
+    
+        return view('staff.viewPatient', [
+            'sessions' => $sessions
+        ]);
     }
 }

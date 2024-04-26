@@ -41,6 +41,10 @@ class Patient extends Model
     public function vitals(){
         return $this->hasMany(Vital::class);
     }
+
+    public function sessions(){
+        return $this->hasMany(Session::class, 'patient_id', 'id');
+    }
 }
 
 
