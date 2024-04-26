@@ -67,7 +67,7 @@
                                                         <a class="btn btn-primary mx-1"  data-bs-toggle="modal" data-bs-target="#deleteSession{{ $session->id }}">Add Session</a>
                                                         <a class="btn btn-primary mx-1"  data-bs-toggle="modal" data-bs-target="#updateSession">Add Session</a>
                                                         <a class="btn btn-primary mx-1"  data-bs-toggle="modal" data-bs-target="#addVitals">Add Session</a>
-                                                        <a class="btn btn-primary mx-1"  data-bs-toggle="modal" data-bs-target="#addTest">Add Session</a>
+                                                        <a class="btn btn-primary mx-1"  data-bs-toggle="modal" data-bs-target="#addTest">Add Test</a>
                                                         <a class="btn btn-primary mx-1"  data-bs-toggle="modal" data-bs-target="#addPrescription">Add Session</a>
                                                         <a class="btn btn-primary mx-1"  data-bs-toggle="modal" data-bs-target="#updateStatus">Add Session</a>
 
@@ -81,7 +81,23 @@
                                                 @if(!empty($session->vitals))
                                                 
                                                     @foreach($session->vitals()->orderBy('id', 'desc')->get() as $vitals)
-                                                    <p>Temperature: {{ $session->vitals }}</p>
+                                                    <p>Temperature: {{  $session->vitals }}</p>
+                                                    @endforeach
+                                                @endif
+                                                <hr>
+                                                <h5 class="mb-0 card-title">Tests</h5>
+                                                @if(!empty($session->tests))
+                                                
+                                                    @foreach($session->tests()->orderBy('id', 'desc')->get() as $tests)
+                                                    <p>Test Name: {{ $session->tests }}</p>
+                                                    @endforeach
+                                                @endif
+                                                <hr>
+                                                <h5 class="mb-0 card-title">Precriptions</h5>
+                                                @if(!empty($session->prescriptions))
+                                                
+                                                    @foreach($session->prescriptions()->orderBy('id', 'desc')->get() as $prescriptions)
+                                                    <p>Prescription: {{ $session->prescriptions }}</p>
                                                     @endforeach
                                                 @endif
                                             </div>
@@ -142,11 +158,11 @@
                 </div>
 
                 <!-- Test Modal -->
-                <div class="modal fade" id="testModal" tabindex="-1" role="dialog" aria-labelledby="testModalLabel" aria-hidden="true">
+                <div class="modal fade" id="addTest" tabindex="-1" role="dialog" aria-labelledby="addTest" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="testModalLabel">Tests</h5>
+                                <h5 class="modal-title" id="addTest">Tests</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
