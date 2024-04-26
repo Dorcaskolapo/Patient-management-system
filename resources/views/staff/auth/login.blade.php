@@ -11,7 +11,7 @@
                 <div>
                     <div class="text-center">
                         <a class="logo" href="index.html">
-                            <img class="img-fluid" src="{{asset('assets/images/logo.png')}}" alt="login page">
+                            <img class="img-fluid" src="{{asset('assets/images/OMC (1).png')}}" alt="login page">
                         </a>
                     </div>
                     <div class="login-main">
