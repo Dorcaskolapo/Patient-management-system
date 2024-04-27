@@ -58,4 +58,7 @@ class Staff extends Authenticatable
         return $this->belongsTo(Role::class, 'role');
     }
 
+    public function sessions() {
+        return $this->hasMany(Session::class, 'staff_id');
+    }
 }
