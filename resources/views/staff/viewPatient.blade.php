@@ -56,7 +56,9 @@
                             </div>
                             <div class="accordion" id="accordionSessions">
                                 @if($sessions->isEmpty())
-                                    <p>No sessions found.</p>
+                                    <div class="text-center">
+                                        <strong><p class="text-centered">No sessions found.</p></strong>
+                                    </div>
                                 @else
                                     @foreach($sessions as $index => $session)
                                         <div class="accordion-item">
@@ -87,8 +89,7 @@
                                                                             <li>Temperature: {{ $vitals->body_temperature }}</li>
                                                                             <li>Pulse Rate: {{ $vitals->pulse_rate }}</li>
                                                                             <li>Blood Pressure: {{ $vitals->blood_pressure_systolic }}/{{ $vitals->blood_pressure_diastolic }}</li>
-                                                                            {{-- <li>Notes: {!! $vitals->notes !!}</li> --}}
-                                                                            <p><li>Notes: {!! htmlspecialchars_decode($vitals->notes) !!}</li>
+                                                                            <li>Notes: {!! $vitals->notes !!}</li>
                                                                         </ul>
                                                                     @endforeach
                                                                     
@@ -248,7 +249,7 @@
                                 <form method="POST" action="{{ url('staff/addVitals') }}" id="vitalSignsForm">
                                     @csrf
                                     <input type="hidden" name="patient_id" value="{{ $patient->id }}">
-                                    <input type="hidden" name="session_id" value="{{ $session->id }}">
+                                    <input type="hidden" name="session_id" value="{{ isset($session) ? $session->id : '' }}">
                                     <div class="mb-3">
                                         <label for="body_temperature" class="form-label">Body Temperature (°C)</label>
                                         <input type="number" class="form-control" id="body_temperature" name="body_temperature" placeholder="Enter body temperature">
