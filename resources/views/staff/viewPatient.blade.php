@@ -215,6 +215,7 @@
                                                             <div class="mb-3">
                                                                 <label for="status" class="form-label">Select Status</label>
                                                                 <select class="form-select" id="status" name="status">
+                                                                    <option value=" {{ $session->status }} "></option>
                                                                     <option value="Admitted">Admitted</option>
                                                                     <option value="Under Treatment">Under Treatment</option>
                                                                     <option value="Deceased">Deceased</option>

@@ -26,6 +26,10 @@ class Session extends Model
         return $this->belongsTo(Staff::class, 'staff_id');
     }
 
+    public function admin(){
+        return $this->belongsTo(Admin::class, 'admin_id');
+    }
+
     public function vitals(){
         return $this->hasMany(Vital::class, 'session_id', 'id');
     }
