@@ -115,6 +115,10 @@ Route::group(['prefix' => 'staff'], function () {
   Route::post('/updateStaff', [App\Http\Controllers\Staff\StaffController::class, 'updateStaff'])->name('updateStaff')->middleware(['auth:staff']);  
 
   Route::post('/createSession', [App\Http\Controllers\Staff\PatientController::class, 'createSession'])->name('createSession')->middleware(['auth:staff']);
+  Route::post('/updateSession', [App\Http\Controllers\Staff\PatientController::class, 'updateSession'])->name('updateSession')->middleware(['auth:staff']);
+  Route::post('/deleteSession', [App\Http\Controllers\Staff\PatientController::class, 'deleteSession'])->name('deleteSession')->middleware(['auth:staff']);
+  Route::post('/updateSessionStatus', [App\Http\Controllers\Staff\PatientController::class, 'updateSessionStatus'])->name('updateSessionStatus')->middleware(['auth:staff']);
+
 
 });
 

@@ -106,22 +106,6 @@ class PatientController extends Controller
         return redirect()->back();
     }
 
-    // //ALL SESSION
-    // public function allSession() {
-    //     $allSessions = Session::orderBy('created_at', 'desc')->get();
-    
-    //     return view('viewPatient/{slug}', ['allSessions' => $allSessions]);
-    // }
-
-
-
-    // public function allSession() {
-    //     $allSessions = Session::latest()->get();
-    //     return view('staff.viewPatient', [
-    //         'allSessions' => $allSessions,
-    //     ]);
-    // }
-
     public function fetchPatientSessions($patient_id) {
         $sessions = Session::where('patient_id', $patient_id)->orderBy('created_at', 'desc')->get();
     
@@ -129,4 +113,86 @@ class PatientController extends Controller
             'sessions' => $sessions
         ]);
     }
+
+    // UPDATE SESSION 
+    public function updateSession(Request $request){
+        if (!empty($request->session_id) && !$session = Session::find($request->session_id)) {
+            alert()->error('Oops', 'Invalid Session Information')->persistent('Close');
+            return redirect()->back();
+        }
+
+        if (!empty($request->staff_id)) {
+            $session->staff_id = $request->staff_id;
+        }
+        if (!empty($request->patient_id)) {
+            $session->patient_id = $request->patient_id;
+        }
+        if (!empty($request->symptoms)) {
+            $session->symptoms = $request->symptoms;
+        }
+
+        if ($session->save()) {
+            alert()->success('Changes Saved', 'Session details updated successfully')->persistent('Close');
+            return redirect()->back();
+        } else {
+            alert()->error('Oops!', 'Failed to update session details')->persistent('Close');
+            return redirect()->back();
+        }
+    }
+
+    //DELETE SESSION
+    public function deleteSession(Request $request){
+        $validator = Validator::make($request->all(), [
+            'session_id' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            alert()->error('Error', $validator->messages()->all()[0])->persistent('Close');
+            return redirect()->back();
+        }
+
+        if(!$session = Session::find($request->session_id)){
+            alert()->error('Oops', 'Invalid Session')->persistent('Close');
+            return redirect()->back();
+        }
+
+        if($session->delete()) {
+            alert()->success('Deleted', 'Session successfully deleted');
+            return redirect()->back();
+        }
+
+        alert()->error('Oops!', 'Something went wrong')->persistent('Close');
+        return redirect()->back();
+    }
+
+    //UPDATE SESSION STATUS
+    public function updateSessionStatus(Request $request){
+        $validator = Validator::make($request->all(), [
+            'session_id' => 'required',
+            'status' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            alert()->error('Error', $validator->messages()->first())->persistent('Close');
+            return redirect()->back();
+        }
+
+        $session = Session::find($request->session_id);
+        if (!$session) {
+            alert()->error('Error', 'Session not found')->persistent('Close');
+            return redirect()->back();
+        }
+
+        $session->status = $request->status;
+        if ($session->save()) {
+            alert()->success('Success', 'Session status updated successfully')->persistent('Close');
+        } else {
+            alert()->error('Error', 'Failed to update session status')->persistent('Close');
+        }
+        return redirect()->back();
+    }
+
+
+
+
 }
