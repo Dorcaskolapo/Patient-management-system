@@ -125,6 +125,8 @@ Route::group(['prefix' => 'staff'], function () {
   Route::post('/updateSessionStatus', [App\Http\Controllers\Staff\PatientController::class, 'updateSessionStatus'])->name('updateSessionStatus')->middleware(['auth:staff']);
 
 
+  Route::post('/testResult', [App\Http\Controllers\Staff\PatientController::class, 'testResult'])->name('testResult')->middleware(['auth:staff']);
+
 });
 
 

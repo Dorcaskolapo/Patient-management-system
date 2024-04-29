@@ -27,6 +27,7 @@ use App\Models\Genotype;
 use App\Models\Bloodgroup;
 use App\Models\Vital;
 use App\Models\Session;
+use App\Models\TestResult;
 
 class PatientController extends Controller
 {
@@ -35,11 +36,12 @@ class PatientController extends Controller
     //STAFF TO PATIENT VIEW LOGIC
     public function viewPatient($slug){
         $patient = Patient::with('sessions')->where('slug', $slug)->firstOrFail();
-
+        $tests = Test::all();
         $vitals = $patient->vitals;
         return view('staff.viewPatient',[
             'patient' => $patient,
             'vitals' => $vitals,
+            'tests' => $tests,
         ]);
     }
 
@@ -106,6 +108,7 @@ class PatientController extends Controller
         return redirect()->back();
     }
 
+    //FETCH ALL SESSION
     public function fetchPatientSessions($patient_id) {
         $sessions = Session::where('patient_id', $patient_id)->orderBy('created_at', 'desc')->get();
     
@@ -192,7 +195,51 @@ class PatientController extends Controller
         return redirect()->back();
     }
 
+    
+    public function testResult(Request $request){
+        $validator = Validator::make($request->all(), [
+            'session_id' => 'required',
+            'patient_id' => 'required',
+            'test_name' => 'required',
+            'file' => 'required',
+            'summary' => 'required',
+        ]);
 
 
+        if($validator->fails()) {
+            alert()->error('Error', $validator->messages()->all()[0])->persistent('Close');
+            return redirect()->back();
+        }
+
+        $patient_id = $request->patient_id;
+
+        $patient = Patient::findOrFail($patient_id);
+        $patient_name = $patient->lastname . '-' . $patient->othernames;
+
+        $test_name = $request->test_name;
+
+        $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $patient_name . '-' . $test_name)));
+        $fileUrl = null;
+        if($request->has('file')) {
+            $fileUrl = 'uploads/staff/'.$slug.'.'.$request->file('file')->getClientOriginalExtension();
+            $file = $request->file('file')->move('uploads/staff', $fileUrl);
+        }
+
+        $newTestResult = ([
+            'patient_id' => $request->patient_id,
+            'session_id' => $request->session_id,
+            'slug' => $slug,
+            'file' => $fileUrl,
+            'summary' => $request->summary,
+        ]);
+
+        if(TestResult::create($newTestResult)){
+            alert()->success('Changes Saved', 'Test Result added successfully')->persistent('Close');
+            return redirect()->back();
+        }
+
+        alert()->error('Oops!', 'Something went wrong')->persistent('Close');
+        return redirect()->back();
+    }
 
 }

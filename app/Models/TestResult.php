@@ -6,22 +6,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Prescription extends Model
+class TestResult extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'patient_id',
         'session_id',
-        'drug_list',
-        'test_list',
+        'test_name',
+        'file', 
+        'summary', 
+        'slug',  
     ];
 
-    public function drugs() {
-        return $this->hasMany(Drug::class, 'drug_id');
-    }
 
-    
 }
-
-

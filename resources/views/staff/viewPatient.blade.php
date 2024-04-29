@@ -41,9 +41,11 @@
                                 <h2 class="mb-2 card-title">{{ $patient->lastname .' '. $patient->othernames}}</h2>
                                 <strong><p class="mb-md-2 mb-sm-4 mb-2">PAT-{{ sprintf("%03d", $patient->id) }}</p></strong>
                             </div>
-                            <div class="card-body">
-                                <a class="btn btn-primary float-end"  data-bs-toggle="modal" data-bs-target="#addSessionModal">Add Session</a>
-                            </div>
+                            @if($role == 'Doctor' || $role == 'Nurse')
+                                <div class="card-body">
+                                    <a class="btn btn-primary float-end"  data-bs-toggle="modal" data-bs-target="#addSessionModal">Add Session</a>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -64,7 +66,7 @@
                                         <div class="accordion-item">
                                             <h2 class="accordion-header" id="sessionHeading{{ $index }}">
                                                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#sessionCollapse{{ $index }}" aria-expanded="true" aria-controls="sessionCollapse{{ $index }}">
-                                                    <strong> Session created by {{ $session->staff->lastname.' '.$session->staff->othernames }} on {{ date("F j, Y, g:i a", strtotime($session->created_at)); }}</strong>  
+                                                    <strong> Session created by {{ $session->staff ? $session->staff->lastname.' '.$session->staff->othernames : 'Admin' }} on {{ date("F j, Y, g:i a", strtotime($session->created_at)) }}</strong>
                                                 </button>
                                                 <hr>
                                                 <div class="d-flex justify-content-end"> 
@@ -98,8 +100,9 @@
                                                             <hr>
                                                             <div>
                                                                 <h5 class="mb-0 card-title">Tests</h5>
-                                                                @if(!empty($session->tests))
+                                                                @if(!empty($session->test))
                                                                     @foreach($session->tests()->orderBy('id', 'desc')->get() as $tests)
+                                                                        <p>Test Name: {{ $tests->test_name }}</p>
                                                                         <p>Test Name: {{ $tests->test_name }}</p>
                                                                     @endforeach
                                                                 @endif
@@ -123,7 +126,7 @@
                                                                 @endif
 
                                                                 @if($role == 'Lab Technician')
-                                                                    <a class="btn btn-primary btn-sm mb-1 w-100"  data-bs-toggle="modal" data-bs-target="#addTest">Add Test Results</a>
+                                                                    <a class="btn btn-primary btn-sm mb-1 w-100"  data-bs-toggle="modal" data-bs-target="#testResult">Add Test Results</a>
                                                                 @endif
 
                                                                 @if($role == 'Pharmacist')
@@ -215,7 +218,7 @@
                                                             <div class="mb-3">
                                                                 <label for="status" class="form-label">Select Status</label>
                                                                 <select class="form-select" id="status" name="status">
-                                                                    <option value=" {{ $session->status }} "></option>
+                                                                    <option>Select Status</option>
                                                                     <option value="Admitted">Admitted</option>
                                                                     <option value="Under Treatment">Under Treatment</option>
                                                                     <option value="Deceased">Deceased</option>
@@ -279,31 +282,55 @@
                                         <label for="notes" class="form-label">Notes</label>
                                         <textarea class="form-control" id="notes" name="notes" rows="3" placeholder="Enter notes"></textarea>
                                     </div>
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <button type="submit" class="btn btn-primary float-end">Submit</button>
                                 </form>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Test Modal -->
-                <div class="modal fade" id="addTest" tabindex="-1" role="dialog" aria-labelledby="addTest" aria-hidden="true">
+               <!-- Test Modal -->
+                <div class="modal fade" id="testResult" tabindex="-1" role="dialog" aria-labelledby="testResultLabel" aria-hidden="true">
                     <div class="modal-dialog modal-xl" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="addTest">Tests Result</h5>
+                                <h5 class="modal-title" id="testResultLabel">Tests Result</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form method="POST" action="{{ url('staff/addTests') }}" id="testForm">
+                                <form method="POST" action="{{ url('staff/testResult') }}" enctype="multipart/form-data">
                                     @csrf
-                                    <!-- Tests Form Fields -->
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <input type="hidden" name="patient_id" value="{{ $patient->id }}">
+                                    <input type="hidden" name="session_id" value="{{ isset($session) ? $session->id : '' }}">
+                                    
+                                    <div class="mb-3">
+                                        <label for="test_name" class="form-label">Test Name</label>
+                                        <select class="form-select" id="test_name" name="test_name">
+                                            <option value="">Select a Test</option>
+                                            @foreach($tests as $test)
+                                                <option>{{ $test->test_name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="file" class="form-label">File (Image/PDF)</label>
+                                        <input type="file" class="form-control" id="file" name="file" accept="image/*,application/pdf">
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="summary" class="form-label">Summary</label>
+                                        <textarea class="form-control" id="summary" name="summary"></textarea>
+                                    </div>
+                                    
+                                    <button type="submit" class="btn btn-primary float-end">Submit</button>
                                 </form>
                             </div>
                         </div>
                     </div>
                 </div>
+
+
 
                 <!-- Prescription Modal -->
                 <div class="modal fade" id="addPrescription" tabindex="-1" role="dialog" aria-labelledby="addPrescription" aria-hidden="true">
@@ -316,6 +343,8 @@
                             <div class="modal-body">
                                 <form method="POST" action="{{ url('staff/addPrescription') }}">
                                     @csrf
+                                    <input type="hidden" name="patient_id" value="{{ $patient->id }}">
+                                    <input type="hidden" name="session_id" value="{{ isset($session) ? $session->id : '' }}">
                                     <!-- Prescription Form Fields -->
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                 </form>
@@ -358,7 +387,5 @@
             </div>
         </div>
     </div>
-
-
 
 @endsection
