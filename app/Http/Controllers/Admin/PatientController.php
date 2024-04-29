@@ -27,6 +27,7 @@ use App\Models\Genotype;
 use App\Models\Bloodgroup;
 use App\Models\Vital;
 use App\Models\Session;
+use App\Models\TestResult;
 
 class PatientController extends Controller
 {

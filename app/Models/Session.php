@@ -33,4 +33,8 @@ class Session extends Model
     public function vitals(){
         return $this->hasMany(Vital::class, 'session_id', 'id');
     }
+
+    public function testResults(){
+        return $this->hasMany(TestResult::class, 'session_id', 'id');
+    }
 }
