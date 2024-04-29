@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Staff;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -32,12 +32,12 @@ class PatientController extends Controller
 {
     //
 
-    //STAFF TO PATIENT VIEW LOGIC
+    //ADMIN TO PATIENT VIEW LOGIC
     public function viewPatient($slug){
         $patient = Patient::with('sessions')->where('slug', $slug)->firstOrFail();
 
         $vitals = $patient->vitals;
-        return view('staff.viewPatient',[
+        return view('admin.viewPatient',[
             'patient' => $patient,
             'vitals' => $vitals,
         ]);
@@ -91,7 +91,7 @@ class PatientController extends Controller
 
         $newSession = ([
             'patient_id' => $request->patient_id,
-            'staff_id' => $request->staff_id,
+            'admin_id' => $request->admin_id,
             'slug' => $slug,
             'symptoms' => $request->symptoms,
             'status' => 'Under Treatment',
@@ -109,7 +109,7 @@ class PatientController extends Controller
     public function fetchPatientSessions($patient_id) {
         $sessions = Session::where('patient_id', $patient_id)->orderBy('created_at', 'desc')->get();
     
-        return view('staff.viewPatient', [
+        return view('admin.viewPatient', [
             'sessions' => $sessions
         ]);
     }
@@ -121,8 +121,8 @@ class PatientController extends Controller
             return redirect()->back();
         }
 
-        if (!empty($request->staff_id)) {
-            $session->staff_id = $request->staff_id;
+        if (!empty($request->admin_id)) {
+            $session->admin_id = $request->admin_id;
         }
         if (!empty($request->patient_id)) {
             $session->patient_id = $request->patient_id;
