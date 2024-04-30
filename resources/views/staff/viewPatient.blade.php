@@ -205,7 +205,7 @@
 
                                         <!-- Modal for Update Session Status -->
                                         <div class="modal fade" id="updateStatus{{ $session->id }}" tabindex="-1" role="dialog" aria-labelledby="updateStatus{{ $session->id }}Label" aria-hidden="true">
-                                            <div class="modal-dialog modal-xl-centered" role="document">
+                                            <div class="modal-dialog modal-xl" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h5 class="modal-title" id="updateStatus{{ $session->id }}Label">Update Session Status</h5>
@@ -231,6 +231,54 @@
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <!-- Vital Modal -->
+                                        <div class="modal fade" id="addVitals" tabindex="-1" role="dialog" aria-labelledby="addVitals{{ $session->id }}Label" aria-hidden="true">
+                                            <div class="modal-dialog modal-xl" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="addVitals{{ $session->id }}Label">Vital Signs</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form method="POST" action="{{ url('staff/addVitals') }}">
+                                                            @csrf
+                                                            <input type="hidden" name="patient_id" value="{{ $patient->id }}">
+                                                            <input type="hidden" name="session_id" value="{{ isset($session) ? $session->id : '' }}">
+                                                            <div class="mb-3">
+                                                                <label for="body_temperature" class="form-label">Body Temperature (°C)</label>
+                                                                <input type="number" class="form-control" id="body_temperature" name="body_temperature" placeholder="Enter body temperature">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="pulse_rate" class="form-label">Pulse Rate (Beat Per Minute)</label>
+                                                                <input type="number" class="form-control" id="pulse_rate" name="pulse_rate" placeholder="Enter pulse rate">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="respiration_rate" class="form-label">Respiration Rate (Breath Per Minute)</label>
+                                                                <input type="number" class="form-control" id="respiration_rate" name="respiration_rate" placeholder="Enter respiration rate">
+                                                            </div>
+                                                            <hr>
+                                                            <div class="mb-3">
+                                                                <span><p>Blood Pressure (mmHg)</p></span>
+                                                                <div class="mb-3">
+                                                                    <label for="blood_pressure_systolic" class="form-label">Systolic</label>
+                                                                    <input type="number" class="form-control" id="blood_pressure_systolic" name="blood_pressure_systolic" placeholder="Enter blood pressure (systolic)">
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label for="blood_pressure_diastolic" class="form-label">Diastolic</label>
+                                                                    <input type="number" class="form-control" id="blood_pressure_diastolic" name="blood_pressure_diastolic" placeholder="Enter blood pressure (diastolic)">
+                                                                </div>
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="notes" class="form-label">Notes</label>
+                                                                <textarea class="form-control" id="notes" name="notes" rows="3" placeholder="Enter notes"></textarea>
+                                                            </div>
+                                                            <button type="submit" class="btn btn-primary float-end">Submit</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     @endforeach
                                 @endif
                             </div>
@@ -238,56 +286,6 @@
                     </div>
                 </div>
 
-                
-
-                
-                <!-- Vital Modal -->
-                <div class="modal fade" id="addVitals" tabindex="-1" role="dialog" aria-labelledby="addVitals" aria-hidden="true">
-                    <div class="modal-dialog modal-xl" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="vitalSignsModalLabel">Vital Signs</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <form method="POST" action="{{ url('staff/addVitals') }}" id="vitalSignsForm">
-                                    @csrf
-                                    <input type="hidden" name="patient_id" value="{{ $patient->id }}">
-                                    <input type="hidden" name="session_id" value="{{ isset($session) ? $session->id : '' }}">
-                                    <div class="mb-3">
-                                        <label for="body_temperature" class="form-label">Body Temperature (°C)</label>
-                                        <input type="number" class="form-control" id="body_temperature" name="body_temperature" placeholder="Enter body temperature">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="pulse_rate" class="form-label">Pulse Rate (Beat Per Minute)</label>
-                                        <input type="number" class="form-control" id="pulse_rate" name="pulse_rate" placeholder="Enter pulse rate">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="respiration_rate" class="form-label">Respiration Rate (Breath Per Minute)</label>
-                                        <input type="number" class="form-control" id="respiration_rate" name="respiration_rate" placeholder="Enter respiration rate">
-                                    </div>
-                                    <hr>
-                                    <div class="mb-3">
-                                        <span><p>Blood Pressure (mmHg)</p></span>
-                                        <div class="mb-3">
-                                            <label for="blood_pressure_systolic" class="form-label">Systolic</label>
-                                            <input type="number" class="form-control" id="blood_pressure_systolic" name="blood_pressure_systolic" placeholder="Enter blood pressure (systolic)">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="blood_pressure_diastolic" class="form-label">Diastolic</label>
-                                            <input type="number" class="form-control" id="blood_pressure_diastolic" name="blood_pressure_diastolic" placeholder="Enter blood pressure (diastolic)">
-                                        </div>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="notes" class="form-label">Notes</label>
-                                        <textarea class="form-control" id="notes" name="notes" rows="3" placeholder="Enter notes"></textarea>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary float-end">Submit</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
                <!-- Test Modal -->
                 <div class="modal fade" id="testResult" tabindex="-1" role="dialog" aria-labelledby="testResultLabel" aria-hidden="true">
