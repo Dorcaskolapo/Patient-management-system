@@ -330,7 +330,7 @@
                     <hr>
                     <form method="POST" action="{{ url('/admin/createSession') }}">
                         @csrf
-                        <input type="hidden" name="admin_id" value="{{ $admin->id }}" />
+                        <input type="hidden" name="staff_id" value="{{ $admin->staff_id }}" />
                         <input type="hidden" name="patient_id" value="{{ $patient->id }}" />
 
                         <div>

@@ -86,17 +86,20 @@ class PatientController extends Controller
 
     //ADD SESSION 
     public function createSession(Request $request){
-        $patient = Patient::where('id', $request->patient_id)->firstOrFail();
+        $patient = Patient::findOrFail($request->patient_id);
         $uuid = $patient->lastname.' '.$patient->othernames.' '.Carbon::now();
         $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $uuid)));
 
-        $newSession = ([
+        $admin = Auth::user(); 
+        $staff_id = $admin->staff_id;
+
+        $newSession = [
             'patient_id' => $request->patient_id,
-            'admin_id' => $request->admin_id,
+            'staff_id' => $staff_id,
             'slug' => $slug,
             'symptoms' => $request->symptoms,
             'status' => 'Under Treatment',
-        ]);
+        ];
 
         if(Session::create($newSession)){
             alert()->success('Changes Saved', 'Session added successfully')->persistent('Close');
@@ -106,6 +109,7 @@ class PatientController extends Controller
         alert()->error('Oops!', 'Something went wrong')->persistent('Close');
         return redirect()->back();
     }
+
 
     public function fetchPatientSessions($patient_id) {
         $sessions = Session::where('patient_id', $patient_id)->orderBy('created_at', 'desc')->get();
@@ -122,8 +126,8 @@ class PatientController extends Controller
             return redirect()->back();
         }
 
-        if (!empty($request->admin_id)) {
-            $session->admin_id = $request->admin_id;
+        if (!empty($request->staff_id)) {
+            $session->staff_id = $request->staff_id;
         }
         if (!empty($request->patient_id)) {
             $session->patient_id = $request->patient_id;
