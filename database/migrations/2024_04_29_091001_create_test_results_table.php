@@ -18,7 +18,7 @@ class CreateTestResultsTable extends Migration
             $table->unsignedBigInteger('patient_id');
             $table->unsignedBigInteger('session_id');
             $table->string('test_name')->nullable();
-            $table->string('file')->nullable();
+            $table->string('image')->nullable();
             $table->text('summary')->nullable();
             $table->string('slug')->nullable();
             $table->timestamps();

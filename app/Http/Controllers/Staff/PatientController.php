@@ -203,7 +203,7 @@ class PatientController extends Controller
             'session_id' => 'required',
             'patient_id' => 'required',
             'test_name' => 'required',
-            'file' => 'required',
+            'image' => 'required',
             'summary' => 'required',
         ]);
 
@@ -222,16 +222,18 @@ class PatientController extends Controller
 
         $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $patient_name . '-' . $test_name)));
         $fileUrl = null;
-        if($request->has('file')) {
-            $fileUrl = 'uploads/staff/'.$slug.'.'.$request->file('file')->getClientOriginalExtension();
-            $file = $request->file('file')->move('uploads/staff', $fileUrl);
+        if($request->has('image')) {
+            $imageUrl = 'uploads/staff/'.$slug.'.'.$request->image('image')->getClientOriginalExtension();
+            $image = $request->image('image')->move('uploads/staff', $imageUrl);
+        }else {
+            $imageUrl = null;
         }
 
         $newTestResult = ([
             'patient_id' => $request->patient_id,
             'session_id' => $request->session_id,
             'slug' => $slug,
-            'file' => $fileUrl,
+            'image' => $imageUrl,
             'summary' => $request->summary,
         ]);
 

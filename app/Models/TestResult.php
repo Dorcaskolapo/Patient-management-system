@@ -14,7 +14,7 @@ class TestResult extends Model
         'patient_id',
         'session_id',
         'test_name',
-        'file', 
+        'image', 
         'summary', 
         'slug',  
     ];

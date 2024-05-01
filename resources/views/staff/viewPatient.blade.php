@@ -103,7 +103,7 @@
                                                                 @if(!empty($session->testResults))
                                                                     @foreach($session->testResults()->orderBy('id', 'desc')->get() as $testResults)
                                                                         <p>Test Name: {{ $testResults->test_name }}</p>
-                                                                        <p>File: {{ $testResults->file }}</p>
+                                                                        <p>Image: {{ $testResults->image }}</p>
                                                                         <p>Summary: {{ $testResults->summary }}</p>
                                                                     @endforeach
                                                                 @endif
@@ -306,8 +306,8 @@
                                                             </div>
                                                             
                                                             <div class="mb-3">
-                                                                <label for="file" class="form-label">File (Image/PDF)</label>
-                                                                <input type="file" class="form-control" id="file" name="file" accept="image/*,application/pdf">
+                                                                <label for="image" class="form-label">File (Image)</label>
+                                                                <input type="file" class="form-control" id="image" name="image" accept="image/*">
                                                             </div>
                                                             
                                                             <div class="mb-3">
