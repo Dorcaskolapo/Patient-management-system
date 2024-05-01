@@ -38,10 +38,12 @@ class PatientController extends Controller
         $patient = Patient::with('sessions')->where('slug', $slug)->firstOrFail();
         $tests = Test::all();
         $vitals = $patient->vitals;
+        $testResults = TestResult::all();
         return view('staff.viewPatient',[
             'patient' => $patient,
             'vitals' => $vitals,
             'tests' => $tests,
+            'testResults' => $testResults,
         ]);
     }
 
