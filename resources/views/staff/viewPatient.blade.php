@@ -100,10 +100,11 @@
                                                             <hr>
                                                             <div>
                                                                 <h5 class="mb-0 card-title">Tests</h5>
-                                                                @if(!empty($session->test))
-                                                                    @foreach($session->tests()->orderBy('id', 'desc')->get() as $tests)
-                                                                        <p>Test Name: {{ $tests->test_name }}</p>
-                                                                        <p>Test Name: {{ $tests->test_name }}</p>
+                                                                @if(!empty($session->testResults))
+                                                                    @foreach($session->testResults()->orderBy('id', 'desc')->get() as $testResults)
+                                                                        <p>Test Name: {{ $testResults->test_name }}</p>
+                                                                        <p>Image: {{ $testResults->image }}</p>
+                                                                        <p>Summary: {{ $testResults->summary }}</p>
                                                                     @endforeach
                                                                 @endif
                                                             </div>
@@ -279,6 +280,47 @@
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <!-- Test Modal -->
+                                        <div class="modal fade" id="testResult" tabindex="-1" role="dialog" aria-labelledby="testResult{{ $session->id }}Label" aria-hidden="true">
+                                            <div class="modal-dialog modal-xl" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="testResult{{ $session->id }}Label">Tests Result</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form method="POST" action="{{ url('staff/testResult') }}" enctype="multipart/form-data">
+                                                            @csrf
+                                                            <input type="hidden" name="patient_id" value="{{ $patient->id }}">
+                                                            <input type="hidden" name="session_id" value="{{ isset($session) ? $session->id : '' }}">
+                                                            
+                                                            <div class="mb-3">
+                                                                <label for="test_name" class="form-label">Test Name</label>
+                                                                <select class="form-select" id="test_name" name="test_name">
+                                                                    <option value="">Select a Test</option>
+                                                                    @foreach($tests as $test)
+                                                                        <option>{{ $test->test_name }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                            
+                                                            <div class="mb-3">
+                                                                <label for="image" class="form-label">File (Image)</label>
+                                                                <input type="file" class="form-control" id="image" name="image" accept="image/*">
+                                                            </div>
+                                                            
+                                                            <div class="mb-3">
+                                                                <label for="summary" class="form-label">Summary</label>
+                                                                <textarea class="form-control" id="summary" name="summary"></textarea>
+                                                            </div>
+                                                            
+                                                            <button type="submit" class="btn btn-primary float-end">Submit</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     @endforeach
                                 @endif
                             </div>
@@ -287,46 +329,7 @@
                 </div>
 
 
-               <!-- Test Modal -->
-                <div class="modal fade" id="testResult" tabindex="-1" role="dialog" aria-labelledby="testResultLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-xl" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="testResultLabel">Tests Result</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <form method="POST" action="{{ url('staff/testResult') }}" enctype="multipart/form-data">
-                                    @csrf
-                                    <input type="hidden" name="patient_id" value="{{ $patient->id }}">
-                                    <input type="hidden" name="session_id" value="{{ isset($session) ? $session->id : '' }}">
-                                    
-                                    <div class="mb-3">
-                                        <label for="test_name" class="form-label">Test Name</label>
-                                        <select class="form-select" id="test_name" name="test_name">
-                                            <option value="">Select a Test</option>
-                                            @foreach($tests as $test)
-                                                <option>{{ $test->test_name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    
-                                    <div class="mb-3">
-                                        <label for="file" class="form-label">File (Image/PDF)</label>
-                                        <input type="file" class="form-control" id="file" name="file" accept="image/*,application/pdf">
-                                    </div>
-                                    
-                                    <div class="mb-3">
-                                        <label for="summary" class="form-label">Summary</label>
-                                        <textarea class="form-control" id="summary" name="summary"></textarea>
-                                    </div>
-                                    
-                                    <button type="submit" class="btn btn-primary float-end">Submit</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+               
 
 
 
