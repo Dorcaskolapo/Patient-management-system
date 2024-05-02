@@ -321,34 +321,29 @@
                                                 </div>
                                             </div>
                                         </div>
+
+                                         <!-- Prescription Modal -->
+                                        <div class="modal fade" id="addPrescription" tabindex="-1" role="dialog" aria-labelledby="addPrescription{{ $session->id }}Label" aria-hidden="true">
+                                            <div class="modal-dialog modal-xl" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="addPrescription{{ $session->id }}Label">Prescription</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form method="POST" action="{{ url('staff/addPrescription') }}">
+                                                            @csrf
+                                                            <input type="hidden" name="patient_id" value="{{ $patient->id }}">
+                                                            <input type="hidden" name="session_id" value="{{ isset($session) ? $session->id : '' }}">
+                                                            <!-- Prescription Form Fields -->
+                                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     @endforeach
                                 @endif
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-               
-
-
-
-                <!-- Prescription Modal -->
-                <div class="modal fade" id="addPrescription" tabindex="-1" role="dialog" aria-labelledby="addPrescription" aria-hidden="true">
-                    <div class="modal-dialog modal-xl" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="addPrescription">Prescription</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <form method="POST" action="{{ url('staff/addPrescription') }}">
-                                    @csrf
-                                    <input type="hidden" name="patient_id" value="{{ $patient->id }}">
-                                    <input type="hidden" name="session_id" value="{{ isset($session) ? $session->id : '' }}">
-                                    <!-- Prescription Form Fields -->
-                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                </form>
                             </div>
                         </div>
                     </div>
