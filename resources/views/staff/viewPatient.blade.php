@@ -100,14 +100,35 @@
                                                             <hr>
                                                             <div>
                                                                 <h5 class="mb-0 card-title">Tests</h5>
-                                                                @if(!empty($session->testResults))
-                                                                    @foreach($session->testResults()->orderBy('id', 'desc')->get() as $testResults)
-                                                                        <p>Test Name: {{ $testResults->test_name }}</p>
-                                                                        <p>Image: {{ $testResults->image }}</p>
-                                                                        <p>Summary: {{ $testResults->summary }}</p>
-                                                                    @endforeach
-                                                                @endif
+                                                                <div class="row">
+                                                                    @if(!empty($session->testResults))
+                                                                        @foreach($session->testResults()->orderBy('id', 'desc')->get() as $testResults)
+                                                                            <div class="col-md-4 mb-4">
+                                                                                <div class="card">
+                                                                                    <div class="card-body">
+                                                                                        <h5 class="card-title">Test Name: {{ $testResults->test_name }}</h5>
+                                                                                        <img src="{{ asset($testResults->image) }}" alt="Test Image" class="card-img-top" width="100%" height="auto">
+                                                                                        <p class="card-text">Summary: {{ $testResults->summary }}</p>
+                                                                                    </div>
+                                                                                    <div class="card-footer">
+                                                                                        <div class="dropdown">
+                                                                                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton_{{ $loop->index }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                                Action
+                                                                                            </button>
+                                                                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton_{{ $loop->index }}">
+                                                                                                <a class="dropdown-item" href="#">Edit</a>
+                                                                                                <a class="dropdown-item" href="#">View</a>
+                                                                                                <a class="dropdown-item" href="#">Update</a>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        @endforeach
+                                                                    @endif
+                                                                </div>
                                                             </div>
+                                                                                                                             
                                                             <hr>
                                                             <div>
                                                                 <h5 class="mb-0 card-title">Prescriptions</h5>
