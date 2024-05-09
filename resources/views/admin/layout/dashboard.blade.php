@@ -25,8 +25,8 @@
         <!-- start logo components -->
         <div class="nav-header">
             <div class="brand-logo">
-                <a href="index.html"> <img class="logo-tabib" src="{{asset('assets/images/download.png')}}" alt=""></a>
-                <a href="index.html"><img class="brand-title" src="{{asset('assets/images/logo.png')}}" alt=""></a>
+                <a href="index.html"> <img class="logo-tabib" src="{{asset('assets/images/Care-removebg-preview.png')}}" alt=""></a>
+                <a href="index.html"><img class="brand-title" src="{{asset('assets/images/omc.png')}}" alt=""></a>
             </div>
         </div>
         <!-- End logo components -->

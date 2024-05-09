@@ -5,7 +5,7 @@
     <div>
         <div class="text-center">
             <a class="logo" href="index.html">
-                <img class="img-fluid" src="{{asset('assets/images/Centre.png')}}" alt="login page">
+                <img class="img-fluid" src="{{asset('assets/images/Health-removebg-preview.png')}}" alt="login page">
             </a>
         </div>
         <div class="login-main">
