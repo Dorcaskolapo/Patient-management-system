@@ -50,7 +50,7 @@
                                                         <a data-bs-toggle='modal' data-bs-target='#modal-edit-{{ $patient->id }}' class='mr-4'>
                                                             <span class='fas fa-pencil-alt tbl-edit'></span>
                                                         </a>
-                                                        <a class='mr-4 delet' data-bs-toggle='modal' data-bs-target="#modal-delete">
+                                                        <a class='mr-4 delet' data-bs-toggle='modal' data-bs-target="#modal-delete-{{ $patient->id }}">
                                                             <span class='fas fa-trash-alt tbl-delet'></span>
                                                         </a>
                                                     </td>
@@ -184,11 +184,11 @@
 
 
                                                 <!-- Modal for Delete Test -->
-                                                <div class="modal fade" id="modal-delete" tabindex="-1" aria-labelledby="modal-title-delete-row" aria-hidden="true">
+                                                <div class="modal fade" id="modal-delete-{{ $patient->id }}" tabindex="-1" aria-labelledby="modal-title-delete-row" aria-hidden="true">
                                                     <div class="modal-dialog modal-md modal-dialog-centered" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="deletePatient{{ $patient->id }}Label">Delete Patient</h5>
+                                                                <h5 class="modal-title" id="modal-title-delete-row">Delete Patient</h5>
                                                                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>

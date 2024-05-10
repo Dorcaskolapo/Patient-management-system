@@ -56,19 +56,19 @@
                                                     <td>{{ $staff->marital_status }}</td>
                                                     <td>{{ $staff->staffRole->role }}</td>
                                                     <td>
-                                                        <a data-bs-toggle='modal' data-bs-target='#modal-edit'
+                                                        <a data-bs-toggle='modal' data-bs-target='#modal-edit{{ $staff->id }}'
                                                             class='mr-4'>
                                                             <span class='fas fa-pencil-alt tbl-edit'></span>
                                                         </a>
-                                                        <a class='mr-4 delet' data-bs-toggle='modal' data-bs-target="#modal-delete">
+                                                        <a class='mr-4 delet' data-bs-toggle='modal' data-bs-target="#modal-delete{{ $staff->id }}">
                                                             <span class='fas fa-trash-alt tbl-delet'></span>
                                                         </a>
                                                     </td>
                                                 </tr>
 
                                                 <!--Edit Modal -->
-                                                <div class="modal fade" id="modal-edit" tabindex="-1" aria-labelledby="modal-title-edit-row" aria-hidden="true">
-                                                    <div class="modal-dialog modal-lg">
+                                                <div class="modal fade" id="modal-edit{{ $staff->id }}" tabindex="-1" aria-labelledby="modal-title-edit-row" aria-hidden="true">
+                                                    <div class="modal-dialog modal-xl">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
                                                                 <h5 class="modal-title" id="modal-title-edit-row">Edit Staff</h5>
@@ -89,29 +89,34 @@
                                                                                         <form method="POST" action="{{ url('/admin/editStaff') }}" enctype="multipart/form-data">
                                                                                             @csrf
                                                                                             <input type="hidden" name="staff_id" value="{{ $staff->id }}">
-                                                                                            {{-- <div class="row">
+                                                                                            <div class="row">
                                                                                                 <div class="col-xl-4">
                                                                                                     <div class="form-group row widget-3">
                                                                                                         <div class="col-lg-12">
                                                                                                             <div class="form-input">
-                                                                                                                <label class="labeltest" for="file-ip-1">
+                                                                                                                <label class="labeltest" for="image">
                                                                                                                     <span>Drop image here or click to upload.</span>
                                                                                                                 </label>
-                                                                                                                <input type="file" id="file-ip-1" name="image" accept="image/*"  onchange="showPreview(event);">
+                                                                                                                <input type="file" id="image" name="image" accept="image/*"
+                                                                                                                    onchange="showPreview(event);">
                                                                                                                 <div class="preview">
-                                                                                                                    @if(!$staff->image)
-                                                                                                                        <img id="file-ip-1-preview" src="{{ asset('uploads/staff/jolayemi-musa-ibrahim.jpg'.$staff->image) }}" alt="img">
-                                                                                                                    @else
-                                                                                                                        <img id="file-ip-1-preview" src="#" alt="img">
-                                                                                                                    @endif
+                                                                                                                    <img id="file-ip-1-preview" src="#" alt="img">
                                                                                                                 </div>
                                                                                                             </div>
                                                                                                         </div>
                                                                                                     </div>
-                                                                                                </div> --}}
-                                                                                                <div class="row">
-                                                                                                    <img id="file-ip-1-preview" src="{{ asset($staff->image) }}" alt="img">
+                                                                                                    <br>
+                                                                                                    <hr> 
+                                                                                                    <div class="form-group row widget-3">
+                                                                                                        <div class="col-lg-12">
+                                                                                                            <div class="row">
+                                                                                                                <b> <label for="image">Present Image</label> </b>
+                                                                                                                <img id="file-ip-1-preview" src="{{ asset($staff->image) }}" alt="img" style="width: 100%; height: auto;">
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
                                                                                                 </div>
+                                                                                                
                                                                                                 <div class="col-xl-4">
                                                                                                     <div class="form-floating">
                                                                                                         <input type="text" class="form-control" name="lastname" value="{{ $staff->lastname}}">
@@ -131,6 +136,11 @@
                                                                                                     <div class="form-floating">
                                                                                                         <input type="text" class="form-control" name="phone_number" value="{{ $staff->phone_number}}">
                                                                                                         <label for="phone_number">Phone Number(+234)</label>
+                                                                                                    </div>
+                                                                                                    <br>
+                                                                                                    <div class="form-floating">
+                                                                                                        <input type="text" class="form-control" name="address" value="{{ $staff->address}}" >
+                                                                                                        <label for="address">Address</label>
                                                                                                     </div>
                                                                                                 </div>
                                                                                                 <div class="col-xl-4">
@@ -169,27 +179,16 @@
                                                                                                         </select>                                                                                                        
                                                                                                         <label for="role">Role</label>
                                                                                                     </div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <br>
-                                                                                            <div class="row">
-                                                                                                <div class="col-xl-4">
-                                                                                                </div>
-                                                                                                <div class="col-xl-4">
-                                                                                                    <div class="form-floating">
-                                                                                                        <input type="text" class="form-control" name="address" value="{{ $staff->address}}" >
-                                                                                                        <label for="address">Address</label>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                                <br>
-                                                                                                <div class="col-xl-4">
+                                                                                                    
+                                                                                                    <br>
                                                                                                     <div class="form-floating">
                                                                                                         <input type="text" class="form-control" name="religion" value="{{ $staff->religion}}" >
                                                                                                         <label for="religion">Religion</label>
                                                                                                     </div>
+                                                                                                   
                                                                                                 </div>
                                                                                             </div>
-                                                                                            <br>
+                                                                                            
                                                                                             <div class="row">
                                                                                                 <div class="col-xl-4">
                                                                                                 </div>
@@ -219,7 +218,7 @@
 
 
                                                 <!-- Modal for Delete Test -->
-                                                <div class="modal fade" id="modal-delete" tabindex="-1" aria-labelledby="modal-title-delete-row" aria-hidden="true">
+                                                <div class="modal fade" id="modal-delete{{ $staff->id }}" tabindex="-1" aria-labelledby="modal-title-delete-row" aria-hidden="true">
                                                     <div class="modal-dialog modal-md modal-dialog-centered" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
@@ -278,23 +277,6 @@
     </div>
     <!-- End section content -->
 
-
-    <!-- start section footer -->
-    <div class="footer ">
-        <div class="copyright container-fluid">
-            <div class="row">
-                <div class="col-sm-6">
-                    <script>document.write(new Date().getFullYear())</script> © {{ env('APP_NAME') }}.
-                </div>
-                <div class="col-sm-6">
-                    <div class="text-sm-end d-none d-sm-block">
-                        Designed & Developed by {{ env('APP_AUTHOR') }}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End section footer -->
 
 </div>
 

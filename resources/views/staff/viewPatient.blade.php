@@ -28,7 +28,7 @@
                     <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ url('/staff/home') }}">Home</a></li>
-                            <li class="breadcrumb-item active"><a href="{{ url('/staff/profile') }}">Patient Profile</a></li>
+                            <li class="breadcrumb-item active"><a href="{{ url('/staff/viewPatient') }}">Patient Profile</a></li>
                         </ol>
                     </div>
                 </div>

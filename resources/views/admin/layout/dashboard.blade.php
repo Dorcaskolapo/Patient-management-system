@@ -177,6 +177,23 @@
 
     </div>
 
+    <!-- start section footer -->
+    <div class="footer ">
+        <div class="copyright container-fluid">
+            <div class="row">
+                <div class="col-sm-6">
+                    <script>document.write(new Date().getFullYear())</script> © {{ env('APP_NAME') }}.
+                </div>
+                <div class="col-sm-6">
+                    <div class="text-sm-end d-none d-sm-block">
+                        Designed & Developed by {{ env('APP_AUTHOR') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End section footer -->
+
     <!-- JQuery v3.5.1 -->
     <script src="{{asset('assets/plugins/jquery/jquery.min.js')}}"></script>
 
