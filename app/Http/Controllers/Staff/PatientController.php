@@ -39,11 +39,13 @@ class PatientController extends Controller
         $tests = Test::all();
         $vitals = $patient->vitals;
         $testResults = TestResult::all();
+        $drugs = Drug::all();
         return view('staff.viewPatient',[
             'patient' => $patient,
             'vitals' => $vitals,
             'tests' => $tests,
             'testResults' => $testResults,
+            'drugs' => $drugs,
         ]);
     }
 

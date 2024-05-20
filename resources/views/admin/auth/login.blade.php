@@ -4,7 +4,7 @@
 <div class="login-tabib">
     <div>
         <div class="text-center">
-            <a class="logo" href="index.html">
+            <a class="logo" href="#">
                 <img class="img-fluid" src="{{asset('assets/images/Health-removebg-preview.png')}}" alt="login page">
             </a>
         </div>

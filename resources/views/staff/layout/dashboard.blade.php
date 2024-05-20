@@ -29,8 +29,8 @@
         <!-- start logo components -->
         <div class="nav-header">
             <div class="brand-logo">
-                <a href="index.html"> <img class="logo-Omc" src="{{asset('assets/images/medical logo.png')}}" alt=""></a>
-                <a href="index.html"><img class="brand-title" src="{{asset('assets/images/omc.png')}}" alt=""></a>
+                <a href="#"> <img class="logo-Omc" src="{{asset('assets/images/medical logo.png')}}" alt=""></a>
+                <a href="#"><img class="brand-title" src="{{asset('assets/images/omc.png')}}" alt=""></a>
             </div>
         </div>
         <!-- End logo components -->
