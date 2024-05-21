@@ -151,9 +151,12 @@
                                                                     <a class="btn btn-primary btn-sm mb-1 w-100"  data-bs-toggle="modal" data-bs-target="#testResult">Add Test Results</a>
                                                                 @endif
 
-                                                                @if($role == 'Pharmacist')
+                                                                @if($role == 'Doctor' || $role == 'Nurse')
                                                                     <a class="btn btn-primary btn-sm mb-1 w-100"  data-bs-toggle="modal" data-bs-target="#addPrescription">Add Prescription</a>
                                                                 @endif
+                                                                {{-- @if($role == 'Pharmacist')
+                                                                    <a class="btn btn-primary btn-sm mb-1 w-100"  data-bs-toggle="modal" data-bs-target="#viewPrescription">View Prescription</a>
+                                                                @endif --}}
 
                                                                 @if($role == 'Doctor' || $role == 'Nurse')
                                                                     <a class="btn btn-primary btn-sm mb-1 w-100"  data-bs-toggle="modal" data-bs-target="#updateStatus{{ $session->id }}">Update Status</a>
@@ -356,8 +359,31 @@
                                                             @csrf
                                                             <input type="hidden" name="patient_id" value="{{ $patient->id }}">
                                                             <input type="hidden" name="session_id" value="{{ isset($session) ? $session->id : '' }}">
-                                                            <!-- Prescription Form Fields -->
-                                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                                            
+                                                            <div class="mb-3">
+                                                                <label for="trade_name" class="form-label">Drug Name</label>
+                                                                <select class="form-select" id="trade_name" name="trade_name">
+                                                                    <option value="">Select a Drug</option>
+                                                                    @foreach($drugs as $drug)
+                                                                        <option>{{ $drug->trade_name }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+
+                                                            <div class="mb-3">
+                                                                <div class="card shadow mb-4">
+                                                                    <div class="card-header">
+                                                                        <h4 class="card-title">Drugs list</h4>
+                                                                    </div>
+                                                                    <div class="card-body">
+                                                                        <div class="drugslist"></div>
+                                                                        <div class="form-group">
+                                                                            <a class="btn btn-primary float-end" id="butonAddDrug">Add Drug</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <button type="submit" class="btn btn-primary float-end">Create Prescription</button>
                                                         </form>
                                                     </div>
                                                 </div>
