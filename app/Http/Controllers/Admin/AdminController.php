@@ -308,8 +308,7 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
-    public function editStaff(Request $request)
-    {
+    public function editStaff(Request $request){
         if(!empty($request->staff_id) && !$staff = Staff::find($request->staff_id)){
             alert()->error('Oops', 'Invalid Staff Information')->persistent('Close');
             return redirect()->back();

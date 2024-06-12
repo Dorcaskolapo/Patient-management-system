@@ -99,35 +99,50 @@
                                                             </div>
                                                             <hr>
                                                             <div>
-                                                                <h5 class="mb-0 card-title">Tests</h5>
-                                                                <div class="row">
-                                                                    @if(!empty($session->testResults))
-                                                                        @foreach($session->testResults()->orderBy('id', 'desc')->get() as $testResults)
-                                                                            <div class="col-md-4 mb-4">
-                                                                                <div class="card">
-                                                                                    <div class="card-body">
-                                                                                        <h5 class="card-title">Test Name: {{ $testResults->test_name }}</h5>
-                                                                                        <img src="{{ asset($testResults->image) }}" alt="Test Image" class="card-img-top" width="100%" height="auto">
-                                                                                        <p class="card-text">Summary: {{ $testResults->summary }}</p>
-                                                                                    </div>
-                                                                                    <div class="card-footer">
-                                                                                        <div class="dropdown">
-                                                                                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton_{{ $loop->index }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                                                Action
-                                                                                            </button>
-                                                                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton_{{ $loop->index }}">
-                                                                                                <a class="dropdown-item" href="#">Edit</a>
-                                                                                                <a class="dropdown-item" href="#">View</a>
-                                                                                                <a class="dropdown-item" href="#">Update</a>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        @endforeach
-                                                                    @endif
+                                                                <h5 class="mb-0 table-title">
+                                                                    <div class="">
+                                                                        <h5 class="mb-0 card-title">Tests</h5>
+                                                                        <a class="btn float-end" data-bs-toggle="collapse" href="#collapseTable" role="button" aria-expanded="false" aria-controls="collapseTable"><span class="fa fa-chevron-down"></span></a>
+                                                                    </div>
+                                                                   
+                                                                </h5>
+                                                                <div class="collapse" id="collapseTable">
+                                                                    <div class="table-responsive">
+                                                                        <table id="example1" class="display table">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th scope="col">Image</th>
+                                                                                    <th scope="col">Test Name</th>
+                                                                                    <th scope="col">Summary</th>
+                                                                                    <th scope="col">Actions</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                @if(!empty($session->testResults))
+                                                                                    @foreach($session->testResults()->orderBy('id', 'desc')->get() as $testResults)
+                                                                                        <tr>
+                                                                                            <td><img class="rounded-circle" width="35" src="{{ asset($testResults->image) }}" alt="Test Image"></td>
+                                                                                            <td>{{ $testResults->test_name }}</td>
+                                                                                            <td>{!! $testResults->summary !!}</td>
+                                                                                            <td>
+                                                                                                <a class='mr-4 vue' data-bs-toggle='modal' data-bs-target="#modal-view">
+                                                                                                    <span class='fa fa-eye tbl-eye' aria-hidden='true'></span>
+                                                                                                </a>
+                                                                                                <a data-bs-toggle='modal' data-bs-target='#modal-edit' class='mr-4'>
+                                                                                                    <span class='fas fa-pencil-alt tbl-edit'></span>
+                                                                                                </a>
+                                                                                                <a class='mr-4 delet' data-bs-toggle='modal' data-bs-target="#modal-delete">
+                                                                                                    <span class='fas fa-trash-alt tbl-delet'></span>
+                                                                                                </a>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    @endforeach
+                                                                                @endif
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
+                                                            </div>                                                            
                                                                                                                              
                                                             <hr>
                                                             <div>
