@@ -79,11 +79,13 @@
                                                         <div class="col-lg-9">
                                                             <div>
                                                                 <h5 class="mb-0 card-title">Symptoms</h5>
+                                                                <hr>
                                                                 {!! $session->symptoms !!}
                                                             </div>
                                                             <hr>
                                                             <div>
                                                                 <h5 class="mb-0 card-title">Vitals</h5>
+                                                                <hr>
                                                                 @if(!empty($session->vitals))
                                                                    
                                                                     @foreach($session->vitals()->orderBy('id', 'desc')->get() as $vitals)
@@ -99,48 +101,84 @@
                                                             </div>
                                                             <hr>
                                                             <div>
-                                                                <h5 class="mb-0 table-title">
-                                                                    <div class="">
-                                                                        <h5 class="mb-0 card-title">Tests</h5>
-                                                                        <a class="btn float-end" data-bs-toggle="collapse" href="#collapseTable" role="button" aria-expanded="false" aria-controls="collapseTable"><span class="fa fa-chevron-down"></span></a>
+                                                                <h5 class="mb-0 card-title">Tests</h5>
+                                                                <hr>
+                                                                <div class="widget-media list-doctors best-doctor">
+                                                                    <div class="timeline row">
+                                                                        @if(!empty($session->testResults))
+                                                                            @foreach($session->testResults()->orderBy('id', 'desc')->get() as $testResults)
+                                                                                <div class="col-sm-6 col-lg-4">
+                                                                                    <div class="timeline-panel card p-4 mb-4">
+                                                                                        
+                                                                                        <div class="float-end mr-2">
+                                                                                            <span class='fas fa-trash-alt tbl-delet' style="color: rgb(213, 88, 88);" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="{{ $testResults->id }}"></span>
+                                                                                        </div>
+                                                                                        <div class="float-end mr-2">
+                                                                                            <span class='fas fa-pencil-alt tbl-edit' style="color: rgb(71, 186, 40);" data-bs-toggle="modal" data-bs-target="#editModal" data-id="{{ $testResults->id }}" data-name="{{ $testResults->test_name }}"></span>
+                                                                                        </div>
+                                                                                        <div class="float-end mr-2">
+                                                                                            <span class='fa fa-eye tbl-eye' style="color: rgb(74, 186, 211);"></span>
+                                                                                        </div>
+                                                                                        <div class="media">
+                                                                                            <img class="rounded-circle" width="35" src="{{ asset($testResults->image) }}" alt="Test Image">
+                                                                                        </div>
+                                                                                        <div class="media-body">
+                                                                                            <a href="">
+                                                                                                <h4 class="mb-2">{{ $testResults->test_name }}</h4>
+                                                                                            </a>
+                                                                                            
+                                                                                        </div>
+
+                                                                                        <!-- Delete Modal -->
+                                                                                        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                                                                            <div class="modal-dialog" role="document">
+                                                                                                <div class="modal-content">
+                                                                                                    <div class="modal-header">
+                                                                                                        <h5 class="modal-title" id="deleteModalLabel">Delete Test Result</h5>
+                                                                                                    </div>
+                                                                                                    <div class="modal-body">
+                                                                                                        <p>Are you sure you want to delete this test result?</p>
+                                                                                                    </div>
+                                                                                                    <div class="modal-footer">
+                                                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                                                        <button type="button" class="btn btn-danger" id="confirmDelete">Delete</button>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        
+                                                                                        <!-- Edit Modal -->
+                                                                                        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+                                                                                            <div class="modal-dialog" role="document">
+                                                                                                <div class="modal-content">
+                                                                                                    <div class="modal-header">
+                                                                                                        <h5 class="modal-title" id="editModalLabel">Edit Test Result</h5>
+                                                                                                    </div>
+                                                                                                    <div class="modal-body">
+                                                                                                        <form id="editTestForm">
+                                                                                                            <div class="form-group">
+                                                                                                                <label for="editTestName">Test Name</label>
+                                                                                                                <input type="text" class="form-control" id="editTestName">
+                                                                                                            </div>
+                                                                                                            <!-- Add more fields as necessary -->
+                                                                                                        </form>
+                                                                                                    </div>
+                                                                                                    <div class="modal-footer">
+                                                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                                                        <button type="button" class="btn btn-primary" id="saveChanges">Save changes</button>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                            @endforeach
+                                                                        @else
+                                                                            No Test Input Available
+                                                                        @endif
                                                                     </div>
-                                                                   
-                                                                </h5>
-                                                                <div class="collapse" id="collapseTable">
-                                                                    <div class="table-responsive">
-                                                                        <table id="example1" class="display table">
-                                                                            <thead>
-                                                                                <tr>
-                                                                                    <th scope="col">Image</th>
-                                                                                    <th scope="col">Test Name</th>
-                                                                                    <th scope="col">Summary</th>
-                                                                                    <th scope="col">Actions</th>
-                                                                                </tr>
-                                                                            </thead>
-                                                                            <tbody>
-                                                                                @if(!empty($session->testResults))
-                                                                                    @foreach($session->testResults()->orderBy('id', 'desc')->get() as $testResults)
-                                                                                        <tr>
-                                                                                            <td><img class="rounded-circle" width="35" src="{{ asset($testResults->image) }}" alt="Test Image"></td>
-                                                                                            <td>{{ $testResults->test_name }}</td>
-                                                                                            <td>{!! $testResults->summary !!}</td>
-                                                                                            <td>
-                                                                                                <a class='mr-4 vue' data-bs-toggle='modal' data-bs-target="#modal-view">
-                                                                                                    <span class='fa fa-eye tbl-eye' aria-hidden='true'></span>
-                                                                                                </a>
-                                                                                                <a data-bs-toggle='modal' data-bs-target='#modal-edit' class='mr-4'>
-                                                                                                    <span class='fas fa-pencil-alt tbl-edit'></span>
-                                                                                                </a>
-                                                                                                <a class='mr-4 delet' data-bs-toggle='modal' data-bs-target="#modal-delete">
-                                                                                                    <span class='fas fa-trash-alt tbl-delet'></span>
-                                                                                                </a>
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                    @endforeach
-                                                                                @endif
-                                                                            </tbody>
-                                                                        </table>
-                                                                    </div>
+                                                            
                                                                 </div>
                                                             </div>                                                            
                                                                                                                              
