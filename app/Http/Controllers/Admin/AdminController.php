@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Validator;
 
 use SweetAlert;
 use Alert;
-
+    
 use App\Models\Billing;
 use App\Models\Drug;
 use App\Models\Admin;

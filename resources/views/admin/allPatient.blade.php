@@ -242,7 +242,5 @@
         </div>
     </div>
     <!-- End section content -->
-
-    
-
-   
+</div>
+@endsection
