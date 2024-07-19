@@ -257,7 +257,7 @@
             </div>
             <div class="col-sm-6">
                 <div class="text-sm-end d-none d-sm-block">
-                    Designed & Developed by {{ env('APP_AUTHOR') }}
+                    Designed & Developed by KOLAPO DORCAS IBEREANU |20/10MSC001 | 400L COMPUTER SCIENCE {{ env('APP_AUTHOR') }}
                 </div>
             </div>
         </div>
